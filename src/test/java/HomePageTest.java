@@ -17,21 +17,18 @@ public class HomePageTest extends TestBase {
     @BeforeMethod
     public void setup() {
         initialize();
-        homePage = new HomePage();
+        homePage = new LoginPage().login(prop.getProperty("password"));
+        this.homePage = new HomePage();
     }
 
     @Test
     public void shouldDisplayLogoLink(){
-        Assert.assertTrue(new LoginPage()
-                .login(prop.getProperty("password"))
-                .validateLogo());
+        Assert.assertTrue(homePage.validateLogo());
     }
 
     @Test
     public void shouldNavigateToCatalogPage(){
-         new LoginPage()
-                .login(prop.getProperty("password"))
-                .clickCatalogLink();
+        homePage.clickCatalogLink();
         String title = driver.getTitle();
         Assert.assertEquals(title,"Products – ecom.optimus");
     }
