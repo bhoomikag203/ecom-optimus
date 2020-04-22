@@ -29,8 +29,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void shouldLogin() {
-//        loginPage.notifyMe(prop.getProperty("email"));
-//        webDriverWait = new WebDriverWait(driver, 80);
+        webDriverWait = new WebDriverWait(driver, 80);
         HomePage homePage = loginPage.login(prop.getProperty("password"));
     }
 
@@ -39,5 +38,4 @@ public class LoginPageTest extends TestBase {
         driver.close();
         driver.quit();
     }
-
 }

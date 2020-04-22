@@ -1,2 +1,7 @@
 # Default ignored files
 /workspace.xml
+gradle.xml
+../.gradle
+modules.xml
+Ecom_Optimus.iml
+

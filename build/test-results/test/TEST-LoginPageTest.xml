@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="LoginPageTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-04-21T20:05:32" hostname="Sukeshs-MacBook-Pro-2.local" time="2.055">
+<testsuite name="LoginPageTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-04-22T06:25:06" hostname="Sukeshs-MacBook-Pro-2.local" time="5.124">
   <properties/>
-  <testcase name="shouldLogin" classname="LoginPageTest" time="2.055"/>
+  <testcase name="shouldLogin" classname="LoginPageTest" time="1.2"/>
+  <testcase name="shouldValidateTitle" classname="LoginPageTest" time="0.01"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[Starting ChromeDriver 2.44.609545 (c2f88692e98ce7233d2df7c724465ecacfe74df5) on port 5584
+  <system-err><![CDATA[Starting ChromeDriver 2.44.609545 (c2f88692e98ce7233d2df7c724465ecacfe74df5) on port 23850
 Only local connections are allowed.
-Apr 22, 2020 1:35:22 AM org.openqa.selenium.remote.ProtocolHandshake createSession
+Apr 22, 2020 11:55:03 AM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: OSS
+Starting ChromeDriver 2.44.609545 (c2f88692e98ce7233d2df7c724465ecacfe74df5) on port 32603
+Only local connections are allowed.
+Apr 22, 2020 11:55:09 AM org.openqa.selenium.remote.ProtocolHandshake createSession
 INFO: Detected dialect: OSS
 ]]></system-err>
 </testsuite>
