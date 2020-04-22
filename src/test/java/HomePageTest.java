@@ -33,6 +33,13 @@ public class HomePageTest extends TestBase {
         Assert.assertEquals(title,"Products – ecom.optimus");
     }
 
+    @Test
+    public void shouldNavigateToCartPage(){
+        homePage.navigateToCart();
+        String title = driver.getTitle();
+        Assert.assertEquals(title,"Your Shopping Cart – ecom.optimus");
+    }
+
     @AfterMethod
     public void teardown() {
         driver.close();
