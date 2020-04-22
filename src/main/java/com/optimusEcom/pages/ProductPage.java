@@ -1,4 +1,4 @@
 package com.optimusEcom.pages;
 
-public class ProductPage {
+public class ProductPage{
 }

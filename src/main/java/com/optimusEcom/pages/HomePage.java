@@ -20,13 +20,13 @@ public class HomePage extends TestBase {
     @FindBy(xpath = "//header//div[2]//a")
     WebElement cartIcon;
 
-    @FindBy(xpath = "//a[contains(text(), 'ecom.optimus')]")
+    @FindBy(className = "site-header__logo-link")
     WebElement logoLink;
 
     @FindBy(name = "q")
     WebElement searchBox;
 
-    @FindBy(xpath = "//div[@class='predictive-search']//li[@id='search-result-0']")
+    @FindBy(css = "#search-result-0")
     WebElement selectProduct;
 
     private WebDriverWait webDriverWait;
@@ -56,5 +56,13 @@ public class HomePage extends TestBase {
         selectProduct.click();
         return new ProductPage();
     }
-    
+
+    //results with multiple products
+    public SearchResultPage searchProducts(String productName){
+        searchIcon.click();
+        searchBox.sendKeys(productName);
+        searchBox.sendKeys(Keys.ENTER);
+        return new SearchResultPage();
+    }
+
 }

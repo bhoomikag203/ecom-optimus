@@ -2,6 +2,8 @@ import com.optimusEcom.base.TestBase;
 import com.optimusEcom.pages.CatalogPage;
 import com.optimusEcom.pages.HomePage;
 import com.optimusEcom.pages.LoginPage;
+import com.optimusEcom.pages.SearchResultPage;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
