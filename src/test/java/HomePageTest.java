@@ -40,6 +40,13 @@ public class HomePageTest extends TestBase {
         Assert.assertEquals(title,"Your Shopping Cart – ecom.optimus");
     }
 
+    @Test
+    public void shouldSearchTheProduct(){
+        homePage.searchProduct("Round Neck Shirt");
+        String title = driver.getTitle();
+        Assert.assertEquals(title,"Round Neck Shirt – ecom.optimus");
+    }
+
     @AfterMethod
     public void teardown() {
         driver.close();
