@@ -29,4 +29,9 @@ public class HomePage extends TestBase {
         return logoLink.isDisplayed();
     }
 
+    public CatalogPage clickCatalogLink(){
+        catalogLink.click();
+        return new CatalogPage();
+    }
+
 }

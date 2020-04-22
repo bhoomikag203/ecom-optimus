@@ -1,4 +1,5 @@
 import com.optimusEcom.base.TestBase;
+import com.optimusEcom.pages.CatalogPage;
 import com.optimusEcom.pages.HomePage;
 import com.optimusEcom.pages.LoginPage;
 import org.testng.Assert;
@@ -24,6 +25,15 @@ public class HomePageTest extends TestBase {
         Assert.assertTrue(new LoginPage()
                 .login(prop.getProperty("password"))
                 .validateLogo());
+    }
+
+    @Test
+    public void shouldNavigateToCatalogPage(){
+         new LoginPage()
+                .login(prop.getProperty("password"))
+                .clickCatalogLink();
+        String title = driver.getTitle();
+        Assert.assertEquals(title,"Products – ecom.optimus");
     }
 
     @AfterMethod
