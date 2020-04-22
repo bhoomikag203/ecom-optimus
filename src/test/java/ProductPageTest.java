@@ -18,19 +18,22 @@ public class ProductPageTest extends TestBase {
     @BeforeMethod
     public void setup() {
         initialize();
-        productPage = new LoginPage()
-                .login(prop.getProperty("password"))
-                .searchProduct("Round Neck shirt 12");
         productPage = new ProductPage();
     }
 
     @Test
     public void shouldAddProductToCart() throws InterruptedException {
+        productPage = new LoginPage()
+                .login(prop.getProperty("password"))
+                .searchProduct("Round Neck Shirt 16");
         Assert.assertTrue(productPage.addToCart());
     }
 
     @Test
     public void shouldCheckIfProductIsAddedToCart() throws InterruptedException {
+        productPage = new LoginPage()
+                .login(prop.getProperty("password"))
+                .searchProduct("Round Neck Shirt 16");
         productPage.addToCart();
         String productName = productPage.getProductName();
         CartPage cartPage = productPage.viewCart();

@@ -1,7 +1,6 @@
 package com.optimusEcom.pages;
 
 import com.optimusEcom.base.TestBase;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -24,6 +23,9 @@ public class HomePage extends TestBase {
 
     @FindBy(name = "q")
     WebElement searchBox;
+
+    @FindBy(className = "predictive-search-view-all__button")
+    WebElement searchButton;
 
     @FindBy(css = "#search-result-0")
     WebElement selectProduct;
@@ -57,12 +59,13 @@ public class HomePage extends TestBase {
         return new ProductPage();
     }
 
-    //results with multiple products
-//    public SearchResultPage searchProducts(String productName){
-//        searchIcon.click();
-//        searchBox.sendKeys(productName);
-//        searchBox.sendKeys(Keys.ENTER);
-//        return new SearchResultPage();
-//    }
+   /*public SearchResultPage searchProduct(String productName){
+       SearchResultPage searchResultPage = new SearchResultPage();
+       this.productName = productName;
+       searchIcon.click();
+       searchBox.sendKeys(productName);
+       searchButton.click();
+       return searchResultPage;
+   }*/
 
 }
