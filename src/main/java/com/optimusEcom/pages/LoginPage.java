@@ -22,7 +22,6 @@ public class LoginPage extends TestBase {
 
     @FindBy(xpath = "//button[contains(text(), 'Enter')]")
     WebElement enterButton;
-    private WebDriverWait webDriverWait;
 
     public LoginPage() {
         PageFactory.initElements(driver, this);
@@ -38,12 +37,9 @@ public class LoginPage extends TestBase {
     }
 
     public HomePage login(String pwd){
-//        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-//        webDriverWait = new WebDriverWait(driver, 100);
         enterUsingPasswordLink.click();
         password.sendKeys(pwd);
         enterButton.click();
-//        webDriverWait = new WebDriverWait(driver, 100);
         return new HomePage();
     }
 }

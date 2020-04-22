@@ -5,7 +5,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage extends TestBase {
     @FindBy(xpath = "//site-nav__label[contains(text(), 'Home')]")
@@ -29,7 +28,7 @@ public class HomePage extends TestBase {
     @FindBy(css = "#search-result-0")
     WebElement selectProduct;
 
-    private WebDriverWait webDriverWait;
+    private String productName;
 
     public HomePage() {
         PageFactory.initElements(driver, this);
@@ -51,6 +50,7 @@ public class HomePage extends TestBase {
 
     //selecting a product from predictive search box
     public ProductPage searchProduct(String productName){
+        this.productName=productName;
         searchIcon.click();
         searchBox.sendKeys(productName);
         selectProduct.click();
@@ -58,11 +58,11 @@ public class HomePage extends TestBase {
     }
 
     //results with multiple products
-    public SearchResultPage searchProducts(String productName){
-        searchIcon.click();
-        searchBox.sendKeys(productName);
-        searchBox.sendKeys(Keys.ENTER);
-        return new SearchResultPage();
-    }
+//    public SearchResultPage searchProducts(String productName){
+//        searchIcon.click();
+//        searchBox.sendKeys(productName);
+//        searchBox.sendKeys(Keys.ENTER);
+//        return new SearchResultPage();
+//    }
 
 }
