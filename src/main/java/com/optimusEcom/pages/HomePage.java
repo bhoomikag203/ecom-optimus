@@ -1,9 +1,12 @@
 package com.optimusEcom.pages;
 
 import com.optimusEcom.base.TestBase;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class HomePage extends TestBase {
     @FindBy(xpath = "//a[@href='/collections/all']")
@@ -24,6 +27,12 @@ public class HomePage extends TestBase {
     @FindBy(css = "#search-result-0")
     WebElement selectProduct;
 
+    @FindBy(css = "div.shopify-section.index-section:nth-child(3)")
+    WebElement featureCollection;
+
+    @FindBy(css = ".full-width-link")
+    List<WebElement> featureCollectionProducts;
+
     public HomePage() {
         PageFactory.initElements(driver, this);
     }
@@ -42,12 +51,19 @@ public class HomePage extends TestBase {
         return new CartPage();
     }
 
-//    selecting a product from predictive search box
-    public ProductPage searchProduct(String productName){
+    //    selecting a product from predictive search box
+    public ProductPage searchProduct(String productName) {
         searchIcon.click();
         searchBox.sendKeys(productName);
         selectProduct.click();
         return new ProductPage();
     }
 
+    public ProductPage addProductFromFeatureCollection() throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", featureCollection);
+        Thread.sleep(2000);
+        featureCollectionProducts.get(0).click();
+        return new ProductPage();
+    }
 }

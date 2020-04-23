@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class HomePageTest extends TestBase {
     HomePage homePage;
 
-    public HomePageTest(){
+    public HomePageTest() {
         super();
     }
 
@@ -20,32 +20,39 @@ public class HomePageTest extends TestBase {
     }
 
     @Test
-    public void shouldDisplayLogoLink(){
+    public void shouldDisplayLogoLink() {
         homePage = new LoginPage().login(prop.getProperty("password"));
         Assert.assertTrue(homePage.validateLogo());
     }
 
     @Test
-    public void shouldNavigateToCatalogPage(){
+    public void shouldNavigateToCatalogPage() {
         homePage = new LoginPage().login(prop.getProperty("password"));
         homePage.clickCatalogLink();
         String title = driver.getTitle();
-        Assert.assertEquals(title,"Products – ecom.optimus");
+        Assert.assertEquals(title, "Products – ecom.optimus");
     }
 
     @Test
-    public void shouldNavigateToCartPage(){
+    public void shouldNavigateToCartPage() {
         homePage = new LoginPage().login(prop.getProperty("password"));
         homePage.navigateToCart();
         String title = driver.getTitle();
-        Assert.assertEquals(title,"Your Shopping Cart – ecom.optimus");
+        Assert.assertEquals(title, "Your Shopping Cart – ecom.optimus");
     }
 
     @Test
-    public void shouldSearchTheProduct(){
+    public void shouldSearchTheProduct() {
         ProductPage productPage = new LoginPage().login(prop.getProperty("password")).searchProduct("Round Neck Shirt");
         String title = driver.getTitle();
-        Assert.assertEquals(title,productPage.getProductName()+" – ecom.optimus");
+        Assert.assertEquals(title, productPage.getProductName() + " – ecom.optimus");
+    }
+
+    @Test
+    public void shouldAddProductFromFeatureCollection() throws InterruptedException {
+        homePage = new LoginPage().login(prop.getProperty("password"));
+        ProductPage productPage = homePage.addProductFromFeatureCollection();
+        Assert.assertTrue(productPage.addToCart());
     }
 
     @AfterMethod
