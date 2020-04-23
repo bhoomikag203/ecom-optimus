@@ -31,16 +31,16 @@ public class TestBase {
     }
 
     public static void initialize() {
-        System.setProperty("webdriver.chrome.driver", "/Users/bhoomikag/IdeaProjects/Ecom_Optimus/drivers/chromedriver69");
-        driver = new ChromeDriver();
-        /*String browserName = prop.getProperty("browser");
+//        System.setProperty("webdriver.chrome.driver", "/Users/bhoomikag/IdeaProjects/Ecom_Optimus/drivers/chromedriver69");
+//        driver = new ChromeDriver();
+        String browserName = prop.getProperty("browser");
         if (browserName.equals("chrome")) {
             System.setProperty("webdriver.chrome.driver", "/Users/bhoomikag/IdeaProjects/Ecom_Optimus/drivers/chromedriver69");
             driver = new ChromeDriver();
         } else if (browserName.equalsIgnoreCase("firefox")) {
-            System.setProperty("webdriver.chrome.driver", "/Users/bhoomikag/IdeaProjects/Ecom_Optimus/drivers/geckodriver");
+            System.setProperty("webdriver.gecko.driver", "/Users/bhoomikag/IdeaProjects/Ecom_Optimus/drivers/geckodriver");
             driver = new FirefoxDriver();
-        }*/
+        }
 
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
