@@ -8,6 +8,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class ProductPageTest extends TestBase {
     ProductPage productPage;
 
@@ -44,12 +49,20 @@ public class ProductPageTest extends TestBase {
     public void shouldAddProductWithMultipleSizeAndColor() throws InterruptedException {
         HomePage homePage = new LoginPage().login(prop.getProperty("password"));
         homePage.searchProduct("Round Neck Shirt 16");
-        productPage.addToCart("M", "White");
-        productPage.addToCart("S", "Silver");
+        String sizeM = "M";
+        String sizeS = "S";
+        ArrayList<String> sizes = new ArrayList<>();
+        sizes.add(sizeM);
+        sizes.add(sizeS);
+        productPage.addToCart(sizeM, "White");
+        productPage.addToCart(sizeS, "Silver");
         CartPage cartPage = homePage.navigateToCart();
-        String cartCount = homePage.getCartCount();
+        Collections.sort(sizes);
+        Assert.assertEquals(cartPage.getSizeList(), sizes);
+
+     /*   String cartCount = homePage.getCartCount();
         cartPage.countProducts();
-        Assert.assertEquals(cartCount, cartPage.countProducts());
+        Assert.assertEquals(cartCount, cartPage.countProducts());*/
     }
 
     @AfterMethod

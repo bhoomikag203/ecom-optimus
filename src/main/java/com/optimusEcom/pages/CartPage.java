@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CartPage extends TestBase {
@@ -25,10 +27,10 @@ public class CartPage extends TestBase {
     @FindBy(css = ".cart-subtotal__price")
     WebElement subTotalPrice;
 
-    @FindBy(css=".product-details__item:nth-child(1)")
+    @FindBy(css = ".product-details__item:nth-child(1)")
     List<WebElement> colorList;
 
-    @FindBy(css=".product-details__item:nth-child(2)")
+    @FindBy(css = ".product-details__item:nth-child(2)")
     List<WebElement> sizeList;
 
     @FindBy(name = "updates[]")
@@ -57,9 +59,9 @@ public class CartPage extends TestBase {
         return totalPrice;
     }
 
-    public String getShirtSize(){
+    public String getShirtSize() {
         String size = (sizeList.get(0).getText().split(" "))[1];
-        System.out.println("Size == "+ size);
+        System.out.println("Size == " + size);
         return size;
     }
 
@@ -78,7 +80,17 @@ public class CartPage extends TestBase {
         return totalPrice;
     }
 
-    public String countProducts(){
+    public List getSizeList() {
+        ArrayList<String> sizes = new ArrayList<>();
+        for (int i = 0; i < sizeList.size(); i++) {
+            String size = (sizeList.get(i).getText().split(" "))[1];
+            sizes.add(size);
+        }
+        Collections.sort(sizes);
+        return sizes;
+    }
+
+    public String countProducts() {
         return String.valueOf(sizeList.size());
     }
 }

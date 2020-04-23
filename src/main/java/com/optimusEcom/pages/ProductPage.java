@@ -56,6 +56,7 @@ public class ProductPage extends TestBase {
 
     public void addToCart(String size, String color) throws InterruptedException {
         this.size = size;
+        Thread.sleep(2000);
         Select selectSize = new Select(sizeOption);
         selectSize.selectByValue(size);
         Select selectColor = new Select(colorOption);
