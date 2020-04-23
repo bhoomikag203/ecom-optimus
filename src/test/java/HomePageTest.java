@@ -1,8 +1,5 @@
 import com.optimusEcom.base.TestBase;
-import com.optimusEcom.pages.CatalogPage;
-import com.optimusEcom.pages.HomePage;
-import com.optimusEcom.pages.LoginPage;
-import com.optimusEcom.pages.SearchResultPage;
+import com.optimusEcom.pages.*;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -19,17 +16,18 @@ public class HomePageTest extends TestBase {
     @BeforeMethod
     public void setup() {
         initialize();
-        homePage = new LoginPage().login(prop.getProperty("password"));
         this.homePage = new HomePage();
     }
 
     @Test
     public void shouldDisplayLogoLink(){
+        homePage = new LoginPage().login(prop.getProperty("password"));
         Assert.assertTrue(homePage.validateLogo());
     }
 
     @Test
     public void shouldNavigateToCatalogPage(){
+        homePage = new LoginPage().login(prop.getProperty("password"));
         homePage.clickCatalogLink();
         String title = driver.getTitle();
         Assert.assertEquals(title,"Products – ecom.optimus");
@@ -37,6 +35,7 @@ public class HomePageTest extends TestBase {
 
     @Test
     public void shouldNavigateToCartPage(){
+        homePage = new LoginPage().login(prop.getProperty("password"));
         homePage.navigateToCart();
         String title = driver.getTitle();
         Assert.assertEquals(title,"Your Shopping Cart – ecom.optimus");
@@ -44,14 +43,13 @@ public class HomePageTest extends TestBase {
 
     @Test
     public void shouldSearchTheProduct(){
-        homePage.searchProduct("Round Neck Shirt");
+        ProductPage productPage = new LoginPage().login(prop.getProperty("password")).searchProduct("Round Neck Shirt");
         String title = driver.getTitle();
-        Assert.assertEquals(title,"Round Neck Shirt – ecom.optimus");
+        Assert.assertEquals(title,productPage.getProductName()+" – ecom.optimus");
     }
 
     @AfterMethod
     public void teardown() {
         driver.close();
-        driver.quit();
     }
 }

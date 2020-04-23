@@ -1,6 +1,5 @@
 import com.optimusEcom.base.TestBase;
 import com.optimusEcom.pages.CartPage;
-import com.optimusEcom.pages.HomePage;
 import com.optimusEcom.pages.LoginPage;
 import com.optimusEcom.pages.ProductPage;
 import org.testng.Assert;
@@ -43,6 +42,5 @@ public class ProductPageTest extends TestBase {
     @AfterMethod
     public void teardown() {
         driver.close();
-        driver.quit();
     }
 }
