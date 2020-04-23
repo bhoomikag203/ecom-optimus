@@ -25,6 +25,12 @@ public class CartPage extends TestBase {
     @FindBy(css = ".cart-subtotal__price")
     WebElement subTotalPrice;
 
+    @FindBy(css=".product-details__item:nth-child(1)")
+    List<WebElement> colorList;
+
+    @FindBy(css=".product-details__item:nth-child(2)")
+    List<WebElement> sizeList;
+
     @FindBy(name = "updates[]")
     List<WebElement> productsQuantity;
 
@@ -51,6 +57,12 @@ public class CartPage extends TestBase {
         return totalPrice;
     }
 
+    public String getShirtSize(){
+        String size = (sizeList.get(0).getText().split(" "))[1];
+        System.out.println("Size == "+ size);
+        return size;
+    }
+
     public double increaseQuantity(String productName, int count) throws InterruptedException {
         double totalPrice = 0;
         for (int i = 0; i < products.size() - 1; i++) {
@@ -64,5 +76,9 @@ public class CartPage extends TestBase {
             }
         }
         return totalPrice;
+    }
+
+    public String countProducts(){
+        return String.valueOf(sizeList.size());
     }
 }

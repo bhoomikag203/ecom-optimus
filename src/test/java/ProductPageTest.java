@@ -1,5 +1,6 @@
 import com.optimusEcom.base.TestBase;
 import com.optimusEcom.pages.CartPage;
+import com.optimusEcom.pages.HomePage;
 import com.optimusEcom.pages.LoginPage;
 import com.optimusEcom.pages.ProductPage;
 import org.testng.Assert;
@@ -36,7 +37,19 @@ public class ProductPageTest extends TestBase {
         productPage.addToCart();
         String productName = productPage.getProductName();
         CartPage cartPage = productPage.viewCart();
-        Assert.assertEquals(cartPage.getProductName(),productName);
+        Assert.assertEquals(cartPage.getProductName(), productName);
+    }
+
+    @Test
+    public void shouldAddProductWithMultipleSizeAndColor() throws InterruptedException {
+        HomePage homePage = new LoginPage().login(prop.getProperty("password"));
+        homePage.searchProduct("Round Neck Shirt 16");
+        productPage.addToCart("M", "White");
+        productPage.addToCart("S", "Silver");
+        CartPage cartPage = homePage.navigateToCart();
+        String cartCount = homePage.getCartCount();
+        cartPage.countProducts();
+        Assert.assertEquals(cartCount, cartPage.countProducts());
     }
 
     @AfterMethod

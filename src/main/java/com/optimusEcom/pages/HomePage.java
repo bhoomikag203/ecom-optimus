@@ -33,6 +33,9 @@ public class HomePage extends TestBase {
     @FindBy(css = ".full-width-link")
     List<WebElement> featureCollectionProducts;
 
+    @FindBy(id = "CartCount")
+    WebElement cartCount;
+
     public HomePage() {
         PageFactory.initElements(driver, this);
     }
@@ -51,6 +54,9 @@ public class HomePage extends TestBase {
         return new CartPage();
     }
 
+    public String getCartCount(){
+        return cartCount.getText();
+    }
     //    selecting a product from predictive search box
     public ProductPage searchProduct(String productName) {
         searchIcon.click();
