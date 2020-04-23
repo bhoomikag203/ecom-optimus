@@ -18,6 +18,9 @@ public class ProductPage extends TestBase {
     @FindBy(className = "product-single__title")
     WebElement productName;
 
+    @FindBy(className = "cart-popup__close")
+    WebElement cartPopupCloseButton;
+
     public String getProductName(){
         return productName.getText();
     }
@@ -29,7 +32,10 @@ public class ProductPage extends TestBase {
     public boolean addToCart() throws InterruptedException {
         addToCartButton.click();
         Thread.sleep(3000);
-        return cartPopupHeading.isDisplayed();
+        boolean isDisplayed = cartPopupHeading.isDisplayed();
+        cartPopupCloseButton.click();
+        Thread.sleep(3000);
+        return isDisplayed;
     }
 
     public CartPage viewCart() throws InterruptedException {
@@ -39,4 +45,5 @@ public class ProductPage extends TestBase {
         Thread.sleep(2000);
         return cartPage;
     }
+
 }
