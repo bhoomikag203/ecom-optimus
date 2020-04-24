@@ -54,9 +54,10 @@ public class HomePage extends TestBase {
         return new CartPage();
     }
 
-    public String getCartCount(){
+    public String getCartCount() {
         return cartCount.getText();
     }
+
     //    selecting a product from predictive search box
     public ProductPage searchProduct(String productName) {
         searchIcon.click();

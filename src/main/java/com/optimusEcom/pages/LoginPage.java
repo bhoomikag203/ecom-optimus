@@ -27,16 +27,16 @@ public class LoginPage extends TestBase {
         PageFactory.initElements(driver, this);
     }
 
-    public String validateTitle(){
+    public String validateTitle() {
         return driver.getTitle();
     }
 
-    public void notifyMe(String email){
+    public void notifyMe(String email) {
         emailID.sendKeys(email);
         notifyMeButton.click();
     }
 
-    public HomePage login(String pwd){
+    public HomePage login(String pwd) {
         enterUsingPasswordLink.click();
         password.sendKeys(pwd);
         enterButton.click();

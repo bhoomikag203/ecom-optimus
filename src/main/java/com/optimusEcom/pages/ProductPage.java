@@ -4,6 +4,7 @@ import com.optimusEcom.base.TestBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 public class ProductPage extends TestBase {
@@ -35,44 +36,27 @@ public class ProductPage extends TestBase {
         return productName.getText();
     }
 
-    public String getSize() {
-        return size;
-    }
-
     private String size;
 
     public ProductPage() {
         PageFactory.initElements(driver, this);
     }
 
-    public boolean addToCart() throws InterruptedException {
-        addToCartButton.click();
-        Thread.sleep(3000);
-        boolean isDisplayed = cartPopupHeading.isDisplayed();
-        cartPopupCloseButton.click();
-        Thread.sleep(3000);
-        return isDisplayed;
-    }
-
-    public void addToCart(String size, String color) throws InterruptedException {
+    public CartPage addToCart(String size, String color) {
         this.size = size;
-        Thread.sleep(2000);
         Select selectSize = new Select(sizeOption);
         selectSize.selectByValue(size);
         Select selectColor = new Select(colorOption);
         selectColor.selectByValue(color);
         addToCartButton.click();
-        Thread.sleep(2000);
-        continueShoppingButton.click();
-        Thread.sleep(2000);
-    }
-
-    public CartPage viewCart() throws InterruptedException {
-        CartPage cartPage = new CartPage();
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.visibilityOf(viewCartLink));
         viewCartLink.click();
-        Thread.sleep(2000);
-        return cartPage;
+        return new CartPage();
     }
 
+    public CartPage addProductWithMultipleSizes(){
+        addToCart("S", "White");
+
+        return new CartPage();
+    }
 }

@@ -20,39 +20,12 @@ public class HomePageTest extends TestBase {
     }
 
     @Test
-    public void shouldDisplayLogoLink() {
-        homePage = new LoginPage().login(prop.getProperty("password"));
-        Assert.assertTrue(homePage.validateLogo());
-    }
-
-    @Test
-    public void shouldNavigateToCatalogPage() {
-        homePage = new LoginPage().login(prop.getProperty("password"));
-        homePage.clickCatalogLink();
-        String title = driver.getTitle();
-        Assert.assertEquals(title, "Products – ecom.optimus");
-    }
-
-    @Test
-    public void shouldNavigateToCartPage() {
-        homePage = new LoginPage().login(prop.getProperty("password"));
-        homePage.navigateToCart();
-        String title = driver.getTitle();
-        Assert.assertEquals(title, "Your Shopping Cart – ecom.optimus");
-    }
-
-    @Test
-    public void shouldSearchTheProduct() {
-        ProductPage productPage = new LoginPage().login(prop.getProperty("password")).searchProduct("Round Neck Shirt");
-        String title = driver.getTitle();
-        Assert.assertEquals(title, productPage.getProductName() + " – ecom.optimus");
-    }
-
-    @Test
     public void shouldAddProductFromFeatureCollection() throws InterruptedException {
         homePage = new LoginPage().login(prop.getProperty("password"));
         ProductPage productPage = homePage.addProductFromFeatureCollection();
-        Assert.assertTrue(productPage.addToCart());
+        String productName = productPage.getProductName();
+        CartPage cartPage = productPage.addToCart("S", "White");
+        Assert.assertEquals(cartPage.getProductName(),productName);
     }
 
     @AfterMethod

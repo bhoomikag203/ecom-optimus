@@ -4,6 +4,7 @@ import com.optimusEcom.base.TestBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class CartPage extends TestBase {
 
 
     public double getTotalPrice() {
+        wait.until(ExpectedConditions.visibilityOfAllElements(totalProductPrice));
         String[] productPriceArray = totalProductPrice.get(0).getText().split(" ");
         String price = productPriceArray[1];
         double totalPrice = Double.parseDouble(price.replaceAll(",", ""));

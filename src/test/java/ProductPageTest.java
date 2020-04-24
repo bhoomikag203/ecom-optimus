@@ -9,9 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class ProductPageTest extends TestBase {
     ProductPage productPage;
@@ -27,21 +25,12 @@ public class ProductPageTest extends TestBase {
     }
 
     @Test
-    public void shouldAddProductToCart() throws InterruptedException {
-        productPage = new LoginPage()
-                .login(prop.getProperty("password"))
-                .searchProduct("Round Neck Shirt 16");
-        Assert.assertTrue(productPage.addToCart());
-    }
-
-    @Test
     public void shouldCheckIfProductIsAddedToCart() throws InterruptedException {
         productPage = new LoginPage()
                 .login(prop.getProperty("password"))
                 .searchProduct("Round Neck Shirt 16");
-        productPage.addToCart();
         String productName = productPage.getProductName();
-        CartPage cartPage = productPage.viewCart();
+        CartPage cartPage = productPage.addToCart("S", "White");
         Assert.assertEquals(cartPage.getProductName(), productName);
     }
 
@@ -55,14 +44,11 @@ public class ProductPageTest extends TestBase {
         sizes.add(sizeM);
         sizes.add(sizeS);
         productPage.addToCart(sizeM, "White");
+        driver.navigate().back();
         productPage.addToCart(sizeS, "Silver");
         CartPage cartPage = homePage.navigateToCart();
         Collections.sort(sizes);
         Assert.assertEquals(cartPage.getSizeList(), sizes);
-
-     /*   String cartCount = homePage.getCartCount();
-        cartPage.countProducts();
-        Assert.assertEquals(cartCount, cartPage.countProducts());*/
     }
 
     @AfterMethod

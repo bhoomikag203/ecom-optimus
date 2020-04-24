@@ -1,5 +1,6 @@
 package com.optimusEcom.base;
 
+import com.optimusEcom.pages.ProductPage;
 import com.optimusEcom.util.TestUtil;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
@@ -7,6 +8,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,6 +18,9 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class TestBase {
+
+    public static WebDriverWait wait;
+    public static Actions actions;
     public static WebDriver driver;
     public static Properties prop;
 
@@ -30,9 +36,7 @@ public class TestBase {
         }
     }
 
-    public static void initialize() {
-//        System.setProperty("webdriver.chrome.driver", "/Users/bhoomikag/IdeaProjects/Ecom_Optimus/drivers/chromedriver69");
-//        driver = new ChromeDriver();
+    public void initialize() {
         String browserName = prop.getProperty("browser");
         if (browserName.equals("chrome")) {
             System.setProperty("webdriver.chrome.driver", "/Users/bhoomikag/IdeaProjects/Ecom_Optimus/drivers/chromedriver69");
@@ -41,7 +45,8 @@ public class TestBase {
             System.setProperty("webdriver.gecko.driver", "/Users/bhoomikag/IdeaProjects/Ecom_Optimus/drivers/geckodriver");
             driver = new FirefoxDriver();
         }
-
+        wait = new WebDriverWait(driver, 25);
+        actions = new Actions(driver);
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);

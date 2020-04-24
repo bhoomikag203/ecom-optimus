@@ -6,6 +6,6 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class SearchResultPage extends TestBase{
+public class SearchResultPage extends TestBase {
 
 }
