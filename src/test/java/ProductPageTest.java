@@ -33,7 +33,6 @@ public class ProductPageTest extends TestBase {
         CartPage cartPage = productPage.addToCart("S", "White");
         Assert.assertEquals(cartPage.getProductName(), productName);
     }
-
     @Test
     public void shouldAddProductWithMultipleSizeAndColor() throws InterruptedException {
         HomePage homePage = new LoginPage().login(prop.getProperty("password"));
@@ -50,7 +49,6 @@ public class ProductPageTest extends TestBase {
         Collections.sort(sizes);
         Assert.assertEquals(cartPage.getSizeList(), sizes);
     }
-
     @AfterMethod
     public void teardown() {
         driver.close();

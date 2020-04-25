@@ -7,7 +7,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -37,14 +39,21 @@ public class TestBase {
     }
 
     public void initialize() {
-        String browserName = prop.getProperty("browser");
-        if (browserName.equals("chrome")) {
-            System.setProperty("webdriver.chrome.driver", "/Users/bhoomikag/IdeaProjects/Ecom_Optimus/drivers/chromedriver69");
-            driver = new ChromeDriver();
-        } else if (browserName.equalsIgnoreCase("firefox")) {
-            System.setProperty("webdriver.gecko.driver", "/Users/bhoomikag/IdeaProjects/Ecom_Optimus/drivers/geckodriver");
-            driver = new FirefoxDriver();
+
+        String browser = prop.getProperty("browser");
+
+        if (browser.equalsIgnoreCase("firefox")) {
+            WebDriverManager.firefoxdriver().setup();
+            FirefoxOptions firefoxOptions = new FirefoxOptions();
+            firefoxOptions.addArguments("--headless");
+            driver = new FirefoxDriver(firefoxOptions);
+        } else if (browser.equalsIgnoreCase("chrome")) {
+            WebDriverManager.chromedriver().setup();
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("headless");
+            driver = new ChromeDriver(chromeOptions);
         }
+
         wait = new WebDriverWait(driver, 25);
         actions = new Actions(driver);
         driver.manage().window().maximize();

@@ -4,6 +4,7 @@ import com.optimusEcom.base.TestBase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends TestBase {
@@ -37,6 +38,7 @@ public class LoginPage extends TestBase {
     }
 
     public HomePage login(String pwd) {
+        wait.until(ExpectedConditions.elementToBeClickable(enterUsingPasswordLink));
         enterUsingPasswordLink.click();
         password.sendKeys(pwd);
         enterButton.click();

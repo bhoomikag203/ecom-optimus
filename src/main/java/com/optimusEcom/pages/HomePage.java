@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class HomePage extends TestBase {
 
     //    selecting a product from predictive search box
     public ProductPage searchProduct(String productName) {
+        wait.until(ExpectedConditions.visibilityOf(searchIcon));
         searchIcon.click();
         searchBox.sendKeys(productName);
         selectProduct.click();
