@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite"  verbose="1" >g
+    <test name="FirstTestCase">
+        <classes>
+            <class name="CartPageTest">
+                <methods>
+                    <include name="shouldIncreaseProductQuantity"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="SecondTestCase">
+        <classes>
+            <class name="HomePageTest">
+                <methods>
+                    <include name="shouldAddProductFromFeatureCollection"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="ThirdTestCase">
+    <classes>
+        <class name="ProductPageTest">
+            <methods>
+                <include name="shouldCheckIfProductIsAddedToCart"/>
+            </methods>
+        </class>
+    </classes>
+</test>
+    <test name="FourthTestCase">
+        <classes>
+            <class name="ProductPageTest">
+                <methods>
+                    <include name="shouldAddProductWithMultipleSizeAndColor"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

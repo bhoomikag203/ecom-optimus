@@ -42,6 +42,7 @@ public class CartPage extends TestBase {
     }
 
     public String getProductName() {
+        wait.until(ExpectedConditions.visibilityOfAllElements(productsName));
         return productsName.get(0).getText();
     }
 
