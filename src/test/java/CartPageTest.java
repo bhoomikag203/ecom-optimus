@@ -22,8 +22,6 @@ public class CartPageTest extends TestBase {
         this.cartPage = new CartPage(driver);
     }
 
-
-
     @Test
     public void shouldIncreaseProductQuantity() throws InterruptedException {
 //        this.cartPage = new CartPage();
