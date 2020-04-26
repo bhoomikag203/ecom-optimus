@@ -3,7 +3,7 @@
 <suite name="All Test Suite"  parallel="tests" thread-count="4" verbose="1" >
     <test name="FirstTestCase">
         <classes>
-            <class name="CartPageTest">
+            <class name="IncreaseProductQuantityTest">
                 <methods>
                     <include name="shouldIncreaseProductQuantity"/>
                 </methods>
@@ -12,7 +12,7 @@
     </test>
     <test name="SecondTestCase">
         <classes>
-            <class name="HomePageTest">
+            <class name="AddProductFromFeatureCollectionTest">
                 <methods>
                     <include name="shouldAddProductFromFeatureCollection"/>
                 </methods>
@@ -21,7 +21,7 @@
     </test>
     <test name="ThirdTestCase">
     <classes>
-        <class name="ProductPageTest">
+        <class name="ProductAddedToCartTest">
             <methods>
                 <include name="shouldCheckIfProductIsAddedToCart"/>
             </methods>
@@ -30,7 +30,7 @@
 </test>
     <test name="FourthTestCase">
         <classes>
-            <class name="ProductPageTest">
+            <class name="AddProductWithMultipleSizeAndColorTest">
                 <methods>
                     <include name="shouldAddProductWithMultipleSizeAndColor"/>
                 </methods>

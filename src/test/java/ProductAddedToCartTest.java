@@ -1,6 +1,7 @@
 import com.optimusEcom.base.TestBase;
-import com.optimusEcom.pages.*;
-import org.openqa.selenium.WebElement;
+import com.optimusEcom.pages.CartPage;
+import com.optimusEcom.pages.LoginPage;
+import com.optimusEcom.pages.ProductPage;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -9,26 +10,27 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class HomePageTest extends TestBase {
-    HomePage homePage;
+public class ProductAddedToCartTest extends TestBase {
+    ProductPage productPage;
 
-    public HomePageTest() {
+    public ProductAddedToCartTest() {
         super();
     }
 
     @BeforeMethod
     public void setup() {
         driver = initialize();
-        this.homePage = new HomePage(driver);
+        this.productPage = new ProductPage(driver);
     }
 
     @Test
-    public void shouldAddProductFromFeatureCollection() throws InterruptedException {
-        homePage = new LoginPage(driver).login(prop.getProperty("password"));
-        ProductPage productPage = homePage.addProductFromFeatureCollection();
+    public void shouldCheckIfProductIsAddedToCart() throws InterruptedException {
+        productPage = new LoginPage(driver)
+                .login(prop.getProperty("password"))
+                .searchProduct("Round Neck Shirt 16");
         String productName = productPage.getProductName();
         CartPage cartPage = productPage.addToCart("S", "White");
-        Assert.assertEquals(cartPage.getProductName(),productName);
+        Assert.assertEquals(cartPage. getProductName(), "productName");
     }
 
     @AfterMethod

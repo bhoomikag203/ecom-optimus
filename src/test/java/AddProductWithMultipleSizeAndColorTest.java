@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ProductPageTest extends TestBase {
+public class AddProductWithMultipleSizeAndColorTest extends TestBase {
     ProductPage productPage;
 
-    public ProductPageTest() {
+    public AddProductWithMultipleSizeAndColorTest() {
         super();
     }
 
@@ -26,17 +26,7 @@ public class ProductPageTest extends TestBase {
         this.productPage = new ProductPage(driver);
     }
 
-    @Test(priority = 1)
-    public void shouldCheckIfProductIsAddedToCart() throws InterruptedException {
-        productPage = new LoginPage(driver)
-                .login(prop.getProperty("password"))
-                .searchProduct("Round Neck Shirt 16");
-        String productName = productPage.getProductName();
-        CartPage cartPage = productPage.addToCart("S", "White");
-        Assert.assertEquals(cartPage.getProductName(), productName);
-    }
-
-    @Test(priority = 2)
+    @Test
     public void shouldAddProductWithMultipleSizeAndColor() throws InterruptedException {
         HomePage homePage = new LoginPage(driver).login(prop.getProperty("password"));
         homePage.searchProduct("Round Neck Shirt 16");

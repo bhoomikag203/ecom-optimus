@@ -20,8 +20,20 @@ dependencies {
     testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
     implementation 'org.testng:testng:6.9.6'
     implementation 'org.testng:testng:6.9.6'
+    compile(group: 'org.uncommons', name: 'reportng', version: '1.1.4') {
+        exclude group: 'org.testng', module: 'testng'
+    }
+    compile group: 'org.uncommons', name: 'reportng', version: '1.1.4'
+    compile group: 'com.google.inject', name: 'guice', version: '3.0'
 }
 
-test {
-    useTestNG()
+task runTests(type: Test) {
+    useTestNG() {
+        parallel = "classes"
+        threadCount = 4
+        useDefaultListeners = false
+        listeners << 'org.uncommons.reportng.HTMLReporter'
+        listeners << 'org.uncommons.reportng.JUnitXMLReporter'
+        outputDirectory = file("$buildDir/reportng-reports")
+    }
 }

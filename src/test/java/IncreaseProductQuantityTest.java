@@ -12,10 +12,10 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class CartPageTest extends TestBase {
+public class IncreaseProductQuantityTest extends TestBase {
     CartPage cartPage;
 
-    public CartPageTest() {
+    public IncreaseProductQuantityTest() {
         super();
     }
 
