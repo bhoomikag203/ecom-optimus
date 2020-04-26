@@ -4,10 +4,12 @@ import com.optimusEcom.pages.HomePage;
 import com.optimusEcom.pages.LoginPage;
 import com.optimusEcom.pages.ProductPage;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -52,7 +54,8 @@ public class ProductPageTest extends TestBase {
     }
 
     @AfterMethod
-    public void teardown() {
+    public void teardown(ITestResult result) throws IOException {
+        getScreenShotOfFailedTest(result);
         driver.close();
     }
 }

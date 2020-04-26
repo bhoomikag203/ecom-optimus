@@ -2,16 +2,23 @@ package com.optimusEcom.base;
 
 import com.optimusEcom.util.TestUtil;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.Reporter;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +31,7 @@ public class TestBase {
     public TestBase() {
         try {
             prop = new Properties();
-            FileInputStream ip = new FileInputStream("/Users/bhoomikag/IdeaProjects/Ecom_Optimus/src/main/java/com/optimusEcom/config/config.properties");
+            FileInputStream ip = new FileInputStream("./src/main/java/com/optimusEcom/config/config.properties");
             prop.load(ip);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -55,5 +62,22 @@ public class TestBase {
         driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
         driver.get(prop.getProperty("url"));
         return driver;
+    }
+
+    public void getScreenShotOfFailedTest(ITestResult result) throws IOException {
+        if (result.getStatus() == 2) {
+            Reporter.log("Failure detected...", true);
+            String fileName = String.format("./screenshots/" + result.getName() + "Screenshot-%s.jpg", Calendar.getInstance().getTimeInMillis());
+            File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            File destFile = new File(fileName);
+            try {
+                FileHandler.copy(srcFile, destFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Reporter.log("Screenshot taken", true);
+        } else {
+            Reporter.log("Test pass successfully", true);
+        }
     }
 }

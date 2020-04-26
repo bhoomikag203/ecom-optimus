@@ -4,10 +4,13 @@ import com.optimusEcom.pages.HomePage;
 import com.optimusEcom.pages.LoginPage;
 import com.optimusEcom.pages.ProductPage;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
 
 public class CartPageTest extends TestBase {
     CartPage cartPage;
@@ -24,7 +27,6 @@ public class CartPageTest extends TestBase {
 
     @Test
     public void shouldIncreaseProductQuantity() throws InterruptedException {
-//        this.cartPage = new CartPage();
         HomePage homePage = new LoginPage(driver).login(prop.getProperty("password"));
         ProductPage productPage = homePage.searchProduct("Round Neck Shirt");
         String productName = productPage.getProductName();
@@ -34,7 +36,8 @@ public class CartPageTest extends TestBase {
     }
 
     @AfterMethod
-    public void teardown() {
+    public void teardown(ITestResult result) throws IOException {
+        getScreenShotOfFailedTest(result);
         driver.close();
     }
 }

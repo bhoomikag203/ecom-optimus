@@ -2,9 +2,12 @@ import com.optimusEcom.base.TestBase;
 import com.optimusEcom.pages.*;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
 
 public class HomePageTest extends TestBase {
     HomePage homePage;
@@ -29,7 +32,8 @@ public class HomePageTest extends TestBase {
     }
 
     @AfterMethod
-    public void teardown() {
+    public void teardown(ITestResult result) throws IOException {
+        getScreenShotOfFailedTest(result);
         driver.close();
     }
 }

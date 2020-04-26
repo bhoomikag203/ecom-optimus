@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="4" guice-stage="DEVELOPMENT" name="Failed suite [All Test Suite]" parallel="tests">
+  <test thread-count="4" name="FourthTestCase(failed)" parallel="tests">
+    <classes>
+      <class name="ProductPageTest">
+        <methods>
+          <include name="teardown"/>
+          <include name="setup"/>
+          <include name="shouldAddProductWithMultipleSizeAndColor"/>
+        </methods>
+      </class> <!-- ProductPageTest -->
+    </classes>
+  </test> <!-- FourthTestCase(failed) -->
   <test thread-count="4" name="FirstTestCase(failed)" parallel="tests">
     <classes>
       <class name="CartPageTest">
