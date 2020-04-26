@@ -6,12 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class CartPage extends TestBase {
 
@@ -25,13 +25,7 @@ public class CartPage extends TestBase {
     List<WebElement> productsName;
 
     @FindBy(css = ".cart__final-price")
-    List<WebElement> totalProductPrice;
-
-    @FindBy(css = ".cart-subtotal__price")
-    WebElement subTotalPrice;
-
-    @FindBy(css = ".product-details__item:nth-child(1)")
-    List<WebElement> colorList;
+    List<WebElement> totalProductsPrice;
 
     @FindBy(css = ".product-details__item:nth-child(2)")
     List<WebElement> sizeList;
@@ -40,7 +34,6 @@ public class CartPage extends TestBase {
     List<WebElement> productsQuantity;
 
     public CartPage(WebDriver driver) {
-//        super();
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -59,8 +52,8 @@ public class CartPage extends TestBase {
 
 
     public double getTotalPrice() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(totalProductPrice));
-        String[] productPriceArray = totalProductPrice.get(0).getText().split(" ");
+        wait.until(ExpectedConditions.visibilityOfAllElements(totalProductsPrice));
+        String[] productPriceArray = totalProductsPrice.get(0).getText().split(" ");
         String price = productPriceArray[1];
         double totalPrice = Double.parseDouble(price.replaceAll(",", ""));
         return totalPrice;
@@ -79,6 +72,7 @@ public class CartPage extends TestBase {
                 productsQuantity.get(i).clear();
                 productsQuantity.get(i).sendKeys(String.valueOf(count));
                 Thread.sleep(2000);
+                driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
                 totalPrice = count * getProductPrice();
                 DecimalFormat df = new DecimalFormat("####0.00");
                 totalPrice = Double.valueOf(df.format(totalPrice));
@@ -95,9 +89,5 @@ public class CartPage extends TestBase {
         }
         Collections.sort(sizes);
         return sizes;
-    }
-
-    public String countProducts() {
-        return String.valueOf(sizeList.size());
     }
 }

@@ -23,7 +23,7 @@ public class AddProductFromFeatureCollectionTest extends TestBase {
     }
 
     @Test
-    public void shouldAddProductFromFeatureCollection() throws InterruptedException {
+    public void shouldAddProductFromFeatureCollection() {
         homePage = new LoginPage(driver).login(prop.getProperty("password"));
         ProductPage productPage = homePage.addProductFromFeatureCollection();
         String productName = productPage.getProductName();

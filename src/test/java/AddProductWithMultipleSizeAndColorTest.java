@@ -27,7 +27,7 @@ public class AddProductWithMultipleSizeAndColorTest extends TestBase {
     }
 
     @Test
-    public void shouldAddProductWithMultipleSizeAndColor() throws InterruptedException {
+    public void shouldAddProductWithMultipleSizeAndColor() {
         HomePage homePage = new LoginPage(driver).login(prop.getProperty("password"));
         homePage.searchProduct("Round Neck Shirt 16");
         String sizeM = "M";

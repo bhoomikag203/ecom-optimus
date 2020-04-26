@@ -9,19 +9,15 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class HomePage extends TestBase {
-    @FindBy(xpath = "//a[@href='/collections/all']")
-    WebElement catalogLink;
 
     @FindBy(xpath = "//header//button[1]//*[local-name()='svg']")
     WebElement searchIcon;
 
     @FindBy(xpath = "//header//div[2]//a")
     WebElement cartIcon;
-
-    @FindBy(className = "site-header__logo-link")
-    WebElement logoLink;
 
     @FindBy(name = "q")
     WebElement searchBox;
@@ -35,21 +31,9 @@ public class HomePage extends TestBase {
     @FindBy(css = ".full-width-link")
     List<WebElement> featureCollectionProducts;
 
-    @FindBy(id = "CartCount")
-    WebElement cartCount;
-
     public HomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-    }
-
-    public boolean validateLogo() {
-        return logoLink.isDisplayed();
-    }
-
-    public CatalogPage clickCatalogLink() {
-        catalogLink.click();
-        return new CatalogPage();
     }
 
     public CartPage navigateToCart() {
@@ -57,11 +41,6 @@ public class HomePage extends TestBase {
         return new CartPage(driver);
     }
 
-    public String getCartCount() {
-        return cartCount.getText();
-    }
-
-    //    selecting a product from predictive search box
     public ProductPage searchProduct(String productName) {
         wait.until(ExpectedConditions.visibilityOf(searchIcon));
         searchIcon.click();
@@ -70,10 +49,10 @@ public class HomePage extends TestBase {
         return new ProductPage(driver);
     }
 
-    public ProductPage addProductFromFeatureCollection() throws InterruptedException {
+    public ProductPage addProductFromFeatureCollection() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", featureCollection);
-        Thread.sleep(2000);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         featureCollectionProducts.get(0).click();
         return new ProductPage(driver);
     }

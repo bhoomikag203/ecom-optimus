@@ -24,13 +24,13 @@ public class ProductAddedToCartTest extends TestBase {
     }
 
     @Test
-    public void shouldCheckIfProductIsAddedToCart() throws InterruptedException {
+    public void shouldCheckIfProductIsAddedToCart() {
         productPage = new LoginPage(driver)
                 .login(prop.getProperty("password"))
                 .searchProduct("Round Neck Shirt 16");
         String productName = productPage.getProductName();
         CartPage cartPage = productPage.addToCart("S", "White");
-        Assert.assertEquals(cartPage. getProductName(), "productName");
+        Assert.assertEquals(cartPage. getProductName(), productName);
     }
 
     @AfterMethod

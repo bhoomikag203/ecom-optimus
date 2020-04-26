@@ -10,12 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends TestBase {
 
-    @FindBy(id = "PasswordNewsletterForm-email")
-    WebElement emailID;
-
-    @FindBy(xpath = "//button[@type='submit']")
-    WebElement notifyMeButton;
-
     @FindBy(xpath = "//a[@href='#LoginModal']")
     WebElement enterUsingPasswordLink;
 
@@ -28,15 +22,6 @@ public class LoginPage extends TestBase {
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-    }
-
-    public String validateTitle() {
-        return driver.getTitle();
-    }
-
-    public void notifyMe(String email) {
-        emailID.sendKeys(email);
-        notifyMeButton.click();
     }
 
     public HomePage login(String pwd) {

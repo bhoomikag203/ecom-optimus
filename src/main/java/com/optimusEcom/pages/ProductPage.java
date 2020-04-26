@@ -9,11 +9,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 public class ProductPage extends TestBase {
+
     @FindBy(name = "add")
     WebElement addToCartButton;
-
-    @FindBy(id = "CartPopupHeading")
-    WebElement cartPopupHeading;
 
     @FindBy(xpath = "//a[@class='cart-popup__cta-link btn btn--secondary-accent']")
     WebElement viewCartLink;
@@ -21,23 +19,15 @@ public class ProductPage extends TestBase {
     @FindBy(className = "product-single__title")
     WebElement productName;
 
-    @FindBy(className = "cart-popup__close")
-    WebElement cartPopupCloseButton;
-
     @FindBy(id = "SingleOptionSelector-0")
     WebElement colorOption;
 
     @FindBy(id = "SingleOptionSelector-1")
     WebElement sizeOption;
 
-    @FindBy(css = ".cart-popup__dismiss-button")
-    WebElement continueShoppingButton;
-
     public String getProductName() {
         return productName.getText();
     }
-
-    private String size;
 
     public ProductPage(WebDriver driver) {
         this.driver= driver;
@@ -45,7 +35,6 @@ public class ProductPage extends TestBase {
     }
 
     public CartPage addToCart(String size, String color) {
-        this.size = size;
         Select selectSize = new Select(sizeOption);
         selectSize.selectByValue(size);
         Select selectColor = new Select(colorOption);
@@ -56,9 +45,4 @@ public class ProductPage extends TestBase {
         return new CartPage(driver);
     }
 
-    public CartPage addProductWithMultipleSizes(){
-        addToCart("S", "White");
-
-        return new CartPage(driver);
-    }
 }
