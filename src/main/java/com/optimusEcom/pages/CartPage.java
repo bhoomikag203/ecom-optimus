@@ -40,7 +40,7 @@ public class CartPage extends TestBase {
     List<WebElement> productsQuantity;
 
     public CartPage(WebDriver driver) {
-        super();
+//        super();
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }

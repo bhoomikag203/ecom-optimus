@@ -41,12 +41,12 @@ public class TestBase {
             WebDriverManager.firefoxdriver().setup();
             FirefoxOptions firefoxOptions = new FirefoxOptions();
             firefoxOptions.addArguments("--headless");
-            driver = new FirefoxDriver();
+            driver = new FirefoxDriver(firefoxOptions);
         } else if (browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("headless");
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(chromeOptions);
         }
         wait = new WebDriverWait(driver, 5);
         driver.manage().window().maximize();
