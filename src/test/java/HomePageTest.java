@@ -15,13 +15,13 @@ public class HomePageTest extends TestBase {
 
     @BeforeMethod
     public void setup() {
-        initialize();
-        this.homePage = new HomePage();
+        driver = initialize();
+        this.homePage = new HomePage(driver);
     }
 
     @Test
     public void shouldAddProductFromFeatureCollection() throws InterruptedException {
-        homePage = new LoginPage().login(prop.getProperty("password"));
+        homePage = new LoginPage(driver).login(prop.getProperty("password"));
         ProductPage productPage = homePage.addProductFromFeatureCollection();
         String productName = productPage.getProductName();
         CartPage cartPage = productPage.addToCart("S", "White");

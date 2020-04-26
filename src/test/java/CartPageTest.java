@@ -18,14 +18,16 @@ public class CartPageTest extends TestBase {
 
     @BeforeMethod
     public void setup() {
-        initialize();
-        this.cartPage = new CartPage();
+        driver = initialize();
+        this.cartPage = new CartPage(driver);
     }
+
+
 
     @Test
     public void shouldIncreaseProductQuantity() throws InterruptedException {
 //        this.cartPage = new CartPage();
-        HomePage homePage = new LoginPage().login(prop.getProperty("password"));
+        HomePage homePage = new LoginPage(driver).login(prop.getProperty("password"));
         ProductPage productPage = homePage.searchProduct("Round Neck Shirt");
         String productName = productPage.getProductName();
         cartPage = productPage.addToCart("M", "White");

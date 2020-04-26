@@ -1,10 +1,12 @@
 package com.optimusEcom.pages;
 
 import com.optimusEcom.base.TestBase;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -37,7 +39,9 @@ public class CartPage extends TestBase {
     @FindBy(name = "updates[]")
     List<WebElement> productsQuantity;
 
-    public CartPage() {
+    public CartPage(WebDriver driver) {
+        super();
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 

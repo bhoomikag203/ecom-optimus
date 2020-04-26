@@ -2,6 +2,7 @@ package com.optimusEcom.pages;
 
 import com.optimusEcom.base.TestBase;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -37,7 +38,8 @@ public class HomePage extends TestBase {
     @FindBy(id = "CartCount")
     WebElement cartCount;
 
-    public HomePage() {
+    public HomePage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -52,7 +54,7 @@ public class HomePage extends TestBase {
 
     public CartPage navigateToCart() {
         cartIcon.click();
-        return new CartPage();
+        return new CartPage(driver);
     }
 
     public String getCartCount() {
@@ -65,7 +67,7 @@ public class HomePage extends TestBase {
         searchIcon.click();
         searchBox.sendKeys(productName);
         selectProduct.click();
-        return new ProductPage();
+        return new ProductPage(driver);
     }
 
     public ProductPage addProductFromFeatureCollection() throws InterruptedException {
@@ -73,6 +75,6 @@ public class HomePage extends TestBase {
         js.executeScript("arguments[0].scrollIntoView();", featureCollection);
         Thread.sleep(2000);
         featureCollectionProducts.get(0).click();
-        return new ProductPage();
+        return new ProductPage(driver);
     }
 }

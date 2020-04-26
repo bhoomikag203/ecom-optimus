@@ -20,22 +20,23 @@ public class ProductPageTest extends TestBase {
 
     @BeforeMethod
     public void setup() {
-        initialize();
-        productPage = new ProductPage();
+        driver = initialize();
+        this.productPage = new ProductPage(driver);
     }
 
-    @Test
+    @Test(priority = 1)
     public void shouldCheckIfProductIsAddedToCart() throws InterruptedException {
-        productPage = new LoginPage()
+        productPage = new LoginPage(driver)
                 .login(prop.getProperty("password"))
                 .searchProduct("Round Neck Shirt 16");
         String productName = productPage.getProductName();
         CartPage cartPage = productPage.addToCart("S", "White");
         Assert.assertEquals(cartPage.getProductName(), productName);
     }
-    @Test
+
+    @Test(priority = 2)
     public void shouldAddProductWithMultipleSizeAndColor() throws InterruptedException {
-        HomePage homePage = new LoginPage().login(prop.getProperty("password"));
+        HomePage homePage = new LoginPage(driver).login(prop.getProperty("password"));
         homePage.searchProduct("Round Neck Shirt 16");
         String sizeM = "M";
         String sizeS = "S";
@@ -49,6 +50,7 @@ public class ProductPageTest extends TestBase {
         Collections.sort(sizes);
         Assert.assertEquals(cartPage.getSizeList(), sizes);
     }
+
     @AfterMethod
     public void teardown() {
         driver.close();

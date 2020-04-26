@@ -1,6 +1,7 @@
 package com.optimusEcom.pages;
 
 import com.optimusEcom.base.TestBase;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -38,7 +39,8 @@ public class ProductPage extends TestBase {
 
     private String size;
 
-    public ProductPage() {
+    public ProductPage(WebDriver driver) {
+        this.driver= driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -51,12 +53,12 @@ public class ProductPage extends TestBase {
         addToCartButton.click();
         wait.until(ExpectedConditions.visibilityOf(viewCartLink));
         viewCartLink.click();
-        return new CartPage();
+        return new CartPage(driver);
     }
 
     public CartPage addProductWithMultipleSizes(){
         addToCart("S", "White");
 
-        return new CartPage();
+        return new CartPage(driver);
     }
 }
