@@ -1,6 +1,5 @@
 package com.optimusEcom.pages;
 
-import com.optimusEcom.base.TestBase;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class HomePage extends TestBase {
+public class HomePage extends BasePage {
 
     @FindBy(xpath = "//header//button[1]//*[local-name()='svg']")
     WebElement searchIcon;
@@ -32,7 +31,7 @@ public class HomePage extends TestBase {
     List<WebElement> featureCollectionProducts;
 
     public HomePage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 

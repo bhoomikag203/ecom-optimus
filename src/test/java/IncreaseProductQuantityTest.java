@@ -1,29 +1,12 @@
-import com.optimusEcom.base.TestBase;
 import com.optimusEcom.pages.CartPage;
 import com.optimusEcom.pages.HomePage;
 import com.optimusEcom.pages.LoginPage;
 import com.optimusEcom.pages.ProductPage;
 import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
-
-public class IncreaseProductQuantityTest extends TestBase {
+public class IncreaseProductQuantityTest extends BaseTest {
     CartPage cartPage;
-
-    public IncreaseProductQuantityTest() {
-        super();
-    }
-
-    @BeforeMethod
-    public void setup() {
-        driver = initialize();
-        this.cartPage = new CartPage(driver);
-    }
 
     @Test
     public void shouldIncreaseProductQuantity() throws InterruptedException {
@@ -35,9 +18,4 @@ public class IncreaseProductQuantityTest extends TestBase {
         Assert.assertEquals(total, cartPage.getTotalPrice());
     }
 
-    @AfterMethod
-    public void teardown(ITestResult result) throws IOException {
-        getScreenShotOfFailedTest(result);
-        driver.close();
-    }
 }

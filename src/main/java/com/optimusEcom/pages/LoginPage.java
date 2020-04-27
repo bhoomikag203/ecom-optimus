@@ -1,14 +1,12 @@
 package com.optimusEcom.pages;
 
-import com.optimusEcom.base.TestBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage extends TestBase {
+public class LoginPage extends BasePage {
 
     @FindBy(xpath = "//a[@href='#LoginModal']")
     WebElement enterUsingPasswordLink;
@@ -20,7 +18,7 @@ public class LoginPage extends TestBase {
     WebElement enterButton;
 
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 

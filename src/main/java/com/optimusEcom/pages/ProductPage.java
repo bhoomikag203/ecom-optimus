@@ -1,6 +1,5 @@
 package com.optimusEcom.pages;
 
-import com.optimusEcom.base.TestBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
-public class ProductPage extends TestBase {
+public class ProductPage extends BasePage {
 
     @FindBy(name = "add")
     WebElement addToCartButton;
@@ -30,7 +29,7 @@ public class ProductPage extends TestBase {
     }
 
     public ProductPage(WebDriver driver) {
-        this.driver= driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 

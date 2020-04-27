@@ -1,6 +1,5 @@
 package com.optimusEcom.pages;
 
-import com.optimusEcom.base.TestBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class CartPage extends TestBase {
+public class CartPage extends BasePage {
 
     @FindBy(className = "cart__row")
     List<WebElement> products;
@@ -34,7 +33,7 @@ public class CartPage extends TestBase {
     List<WebElement> productsQuantity;
 
     public CartPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
