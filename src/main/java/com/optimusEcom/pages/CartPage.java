@@ -43,6 +43,7 @@ public class CartPage extends BasePage {
     }
 
     public double getProductPrice() {
+        wait.until(ExpectedConditions.visibilityOfAllElements(productsPrice));
         String[] productPriceArray = productsPrice.get(0).getText().split(" ");
         String price = productPriceArray[2];
         double productPrice = Double.parseDouble(price.replaceAll(",", ""));

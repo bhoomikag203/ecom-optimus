@@ -36,6 +36,7 @@ public class HomePage extends BasePage {
     }
 
     public CartPage navigateToCart() {
+        wait.until(ExpectedConditions.visibilityOf(cartIcon));
         cartIcon.click();
         return new CartPage(driver);
     }

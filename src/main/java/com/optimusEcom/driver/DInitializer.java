@@ -27,7 +27,7 @@ public class DInitializer {
         System.out.println("Driver Initializing...");
         try {
             prop = new Properties();
-            FileInputStream ip = new FileInputStream("./src/main/java/com/optimusEcom/config/config.properties");
+            FileInputStream ip = new FileInputStream("src/main/resources/config.properties");
             prop.load(ip);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
