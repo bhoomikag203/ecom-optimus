@@ -1,7 +1,7 @@
 # ecom-optimus
 It’s a simple eCommerce site, where you can add products to cart, searchfor a product etc.
 
-###Stories completed
+## Stories completed
 
 1. Search and add a product to cart
 2. Increase product quantity and validate the price.
