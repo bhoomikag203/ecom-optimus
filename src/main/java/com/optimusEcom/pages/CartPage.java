@@ -88,11 +88,12 @@ public class CartPage extends BasePage {
         return totalPrice;
     }
 
-    public List getSizeList() {
-        ArrayList<String> sizes = new ArrayList<>();
+    public List<ProductSize> getSizeList() {
+        ArrayList<ProductSize> sizes = new ArrayList<>();
         for (int i = 0; i < sizeList.size(); i++) {
             String size = (sizeList.get(i).getText().split(" "))[1];
-            sizes.add(size);
+            ProductSize s = ProductSize.valueOf(size);
+            sizes.add(s);
         }
         Collections.sort(sizes);
         return sizes;

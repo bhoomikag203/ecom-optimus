@@ -1,5 +1,6 @@
 package com.optimusEcom.pages;
 
+import com.optimusEcom.properties.Properties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,10 +23,10 @@ public class LoginPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public HomePage login(String pwd) {
+    public HomePage login() {
         wait.until(ExpectedConditions.elementToBeClickable(enterUsingPasswordLink));
         enterUsingPasswordLink.click();
-        password.sendKeys(pwd);
+        password.sendKeys(Properties.password);
         enterButton.click();
         return new HomePage(driver);
     }

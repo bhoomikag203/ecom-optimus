@@ -7,10 +7,10 @@ public class AddProductFromFeatureCollectionTest extends BaseTest {
 
     @Test
     public void shouldAddProductFromFeatureCollection() {
-        homePage = new LoginPage(driver).login(prop.getProperty("password"));
+        homePage = new LoginPage(driver).login();
         ProductPage productPage = homePage.addProductFromFeatureCollection();
         String productName = productPage.getProductName();
-        CartPage cartPage = productPage.addToCart("S", "White");
+        CartPage cartPage = productPage.addToCart(ProductSize.M, "White");
         Assert.assertEquals(cartPage.getProductName(),productName);
     }
 

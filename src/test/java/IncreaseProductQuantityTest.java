@@ -1,7 +1,4 @@
-import com.optimusEcom.pages.CartPage;
-import com.optimusEcom.pages.HomePage;
-import com.optimusEcom.pages.LoginPage;
-import com.optimusEcom.pages.ProductPage;
+import com.optimusEcom.pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,10 +7,10 @@ public class IncreaseProductQuantityTest extends BaseTest {
 
     @Test
     public void shouldIncreaseProductQuantity() {
-        HomePage homePage = new LoginPage(driver).login(prop.getProperty("password"));
+        HomePage homePage = new LoginPage(driver).login();
         ProductPage productPage = homePage.searchProduct("Round Neck Shirt");
         String productName = productPage.getProductName();
-        cartPage = productPage.addToCart("M", "White");
+        cartPage = productPage.addToCart(ProductSize.M, "White");
         double total = cartPage.increaseQuantity(productName, 7);
         Assert.assertEquals(total, cartPage.getTotalPrice());
     }

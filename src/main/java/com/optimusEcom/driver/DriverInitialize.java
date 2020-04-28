@@ -16,29 +16,18 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 //DriverInitializer
-public class DInitializer {
+public class DriverInitialize {
     private String browser;
-    protected WebDriverWait wait;
     public WebDriver driver;
-    public Properties prop;
 
-    public DInitializer(String browser) {
+    public DriverInitialize(String browser) {
         this.browser = browser;
         System.out.println("Driver Initializing...");
-        try {
-            prop = new Properties();
-            FileInputStream ip = new FileInputStream("src/main/resources/config.properties");
-            prop.load(ip);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("123");
     }
 
     public WebDriver initialize() {
-        String browser = prop.getProperty("browser");
+        String browser = com.optimusEcom.properties.Properties.browser;
+
         if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             FirefoxOptions firefoxOptions = new FirefoxOptions();
@@ -50,14 +39,11 @@ public class DInitializer {
             chromeOptions.addArguments("headless");
             driver = new ChromeDriver(chromeOptions);
         }
-        wait = new WebDriverWait(driver, 5);
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
-        driver.get(prop.getProperty("url"));
         System.out.println("Driver initialized...");
-
         return driver;
     }
 

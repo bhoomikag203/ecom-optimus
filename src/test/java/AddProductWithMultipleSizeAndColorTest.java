@@ -1,7 +1,4 @@
-import com.optimusEcom.pages.CartPage;
-import com.optimusEcom.pages.HomePage;
-import com.optimusEcom.pages.LoginPage;
-import com.optimusEcom.pages.ProductPage;
+import com.optimusEcom.pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,16 +10,16 @@ public class AddProductWithMultipleSizeAndColorTest extends BaseTest {
 
     @Test
     public void shouldAddProductWithMultipleSizeAndColor() {
-        String sizeM = "M";
-        String sizeS = "S";
-        ArrayList<String> sizes = new ArrayList<>();
+        ProductSize sizeM = ProductSize.M;
+        ProductSize sizeS = ProductSize.S;
+        ArrayList<ProductSize> sizes = new ArrayList<>();
         sizes.add(sizeM);
         sizes.add(sizeS);
-        productPage = new LoginPage(driver).login(prop.getProperty("password"))
+        productPage = new LoginPage(driver).login()
                 .searchProduct("Round Neck Shirt 16");
-        productPage.addToCart(sizeM, "White");
+        productPage.addToCart(sizes.get(0), "White");
         driver.navigate().back();
-        productPage.addToCart(sizeS, "Silver");
+        productPage.addToCart(sizes.get(1), "Silver");
         CartPage cartPage = new HomePage(driver).navigateToCart();
         Collections.sort(sizes);
         Assert.assertEquals(cartPage.getSizeList(), sizes);
