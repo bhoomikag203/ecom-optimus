@@ -10,7 +10,7 @@ public class IncreaseProductQuantityTest extends BaseTest {
         HomePage homePage = new LoginPage(driver).login();
         ProductPage productPage = homePage.searchProduct("Round Neck Shirt");
         String productName = productPage.getProductName();
-        cartPage = productPage.addToCart(ProductSize.M, "White");
+        cartPage = productPage.addToCart(ProductSize.M, ProductColor.White);
         double total = cartPage.increaseQuantity(productName, 7);
         Assert.assertEquals(total, cartPage.getTotalPrice());
     }

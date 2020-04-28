@@ -10,7 +10,7 @@ public class AddProductFromFeatureCollectionTest extends BaseTest {
         homePage = new LoginPage(driver).login();
         ProductPage productPage = homePage.addProductFromFeatureCollection();
         String productName = productPage.getProductName();
-        CartPage cartPage = productPage.addToCart(ProductSize.M, "White");
+        CartPage cartPage = productPage.addToCart(ProductSize.M, ProductColor.Silver);
         Assert.assertEquals(cartPage.getProductName(),productName);
     }
 

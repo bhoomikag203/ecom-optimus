@@ -33,12 +33,13 @@ public class ProductPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public CartPage addToCart(ProductSize size, String color) {
+    public CartPage addToCart(ProductSize size, ProductColor color) {
         wait.until(ExpectedConditions.elementToBeClickable(sizeOption));
         Select selectSize = new Select(sizeOption);
         selectSize.selectByValue(String.valueOf(size));
+        wait.until(ExpectedConditions.visibilityOf(colorOption));
         Select selectColor = new Select(colorOption);
-        selectColor.selectByValue(color);
+        selectColor.selectByValue(String.valueOf(color));
         addToCartButton.click();
         wait.until(ExpectedConditions.visibilityOf(viewCartLink));
         viewCartLink.click();

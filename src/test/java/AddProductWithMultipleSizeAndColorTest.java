@@ -17,9 +17,9 @@ public class AddProductWithMultipleSizeAndColorTest extends BaseTest {
         sizes.add(sizeS);
         productPage = new LoginPage(driver).login()
                 .searchProduct("Round Neck Shirt 16");
-        productPage.addToCart(sizes.get(0), "White");
+        productPage.addToCart(sizeM, ProductColor.White);
         driver.navigate().back();
-        productPage.addToCart(sizes.get(1), "Silver");
+        productPage.addToCart(sizeS, ProductColor.White);
         CartPage cartPage = new HomePage(driver).navigateToCart();
         Collections.sort(sizes);
         Assert.assertEquals(cartPage.getSizeList(), sizes);
