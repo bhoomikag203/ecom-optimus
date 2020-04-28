@@ -65,19 +65,26 @@ public class CartPage extends BasePage {
         return size;
     }
 
-    public double increaseQuantity(String productName, int count) throws InterruptedException {
+    public double increaseQuantity(String productName, int count) {
         double totalPrice = 0;
-        for (int i = 0; i < products.size() - 1; i++) {
-            if (productName.equalsIgnoreCase(productsName.get(i).getText())) {
-                productsQuantity.get(i).clear();
-                productsQuantity.get(i).sendKeys(String.valueOf(count));
-                Thread.sleep(2000);
-                driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-                totalPrice = count * getProductPrice();
-                DecimalFormat df = new DecimalFormat("####0.00");
-                totalPrice = Double.valueOf(df.format(totalPrice));
+        try {
+            for (int i = 0; i < products.size() - 1; i++) {
+                if (productName.equalsIgnoreCase(productsName.get(i).getText())) {
+                    productsQuantity.get(i).clear();
+                    productsQuantity.get(i).sendKeys(String.valueOf(count));
+                    Thread.sleep(2000);
+                    driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+                    totalPrice = count * getProductPrice();
+                    DecimalFormat df = new DecimalFormat("####0.00");
+                    totalPrice = Double.valueOf(df.format(totalPrice));
+                }
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
+
         return totalPrice;
     }
 

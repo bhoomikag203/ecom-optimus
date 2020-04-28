@@ -9,7 +9,7 @@ public class IncreaseProductQuantityTest extends BaseTest {
     CartPage cartPage;
 
     @Test
-    public void shouldIncreaseProductQuantity() throws InterruptedException {
+    public void shouldIncreaseProductQuantity() {
         HomePage homePage = new LoginPage(driver).login(prop.getProperty("password"));
         ProductPage productPage = homePage.searchProduct("Round Neck Shirt");
         String productName = productPage.getProductName();
