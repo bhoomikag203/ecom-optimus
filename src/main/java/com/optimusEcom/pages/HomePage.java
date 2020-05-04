@@ -36,16 +36,16 @@ public class HomePage extends BasePage {
     }
 
     public CartPage navigateToCart() {
-        wait.until(ExpectedConditions.visibilityOf(cartIcon));
-        cartIcon.click();
+//        wait.until(ExpectedConditions.visibilityOf(cartIcon));
+//        cartIcon.click();
+        click(cartIcon);
         return new CartPage(driver);
     }
 
     public ProductPage searchProduct(String productName) {
-        wait.until(ExpectedConditions.visibilityOf(searchIcon));
-        searchIcon.click();
-        searchBox.sendKeys(productName);
-        selectProduct.click();
+        click(searchIcon);
+        sendKeys(searchBox, productName);
+        click(selectProduct);
         return new ProductPage(driver);
     }
 

@@ -38,12 +38,12 @@ public class CartPage extends BasePage {
     }
 
     public String getProductName() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(productsName));
+        waitForElementsToBeVisible(productsName);
         return productsName.get(0).getText();
     }
 
     public double getProductPrice() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(productsPrice));
+        waitForElementsToBeVisible(productsPrice);
         String[] productPriceArray = productsPrice.get(0).getText().split(" ");
         String price = productPriceArray[2];
         double productPrice = Double.parseDouble(price.replaceAll(",", ""));
@@ -52,7 +52,7 @@ public class CartPage extends BasePage {
 
 
     public double getTotalPrice() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(totalProductsPrice));
+        waitForElementsToBeVisible(totalProductsPrice);
         String[] productPriceArray = totalProductsPrice.get(0).getText().split(" ");
         String price = productPriceArray[1];
         double totalPrice = Double.parseDouble(price.replaceAll(",", ""));

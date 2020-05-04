@@ -34,15 +34,15 @@ public class ProductPage extends BasePage {
     }
 
     public CartPage addToCart(ProductSize size, ProductColor color) {
-        wait.until(ExpectedConditions.elementToBeClickable(sizeOption));
+        waitForElementToBeClickable(sizeOption);
         Select selectSize = new Select(sizeOption);
         selectSize.selectByValue(String.valueOf(size));
-        wait.until(ExpectedConditions.visibilityOf(colorOption));
+        waitForElementToBeClickable(colorOption);
         Select selectColor = new Select(colorOption);
         selectColor.selectByValue(String.valueOf(color));
-        addToCartButton.click();
+        click(addToCartButton);
         wait.until(ExpectedConditions.visibilityOf(viewCartLink));
-        viewCartLink.click();
+        click(viewCartLink);
         return new CartPage(driver);
     }
 
