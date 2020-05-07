@@ -12,7 +12,7 @@ public class IncreaseProductQuantityTest extends BaseTest {
         String productName = productPage.getProductName();
         cartPage = productPage.addToCart(ProductSize.M, ProductColor.White);
         double total = cartPage.increaseQuantity(productName, 7);
-        Assert.assertEquals(total, cartPage.getTotalPrice());
+        Assert.assertEquals(total, cartPage.getSubTotalPrice());
     }
 
 }

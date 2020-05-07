@@ -32,6 +32,9 @@ public class CartPage extends BasePage {
     @FindBy(name = "updates[]")
     List<WebElement> productsQuantity;
 
+    @FindBy(css = ".cart-subtotal__price")
+    WebElement subTotalPrice;
+
     public CartPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -42,10 +45,19 @@ public class CartPage extends BasePage {
         return productsName.get(0).getText();
     }
 
+    public double getSubTotalPrice(){
+        waitForElementToBeVisible(subTotalPrice);
+        String[] subTotalPriceArray = subTotalPrice.getText().split(" ");
+        String price = subTotalPriceArray[1];
+        double subPrice = Double.parseDouble(price.replaceAll(",", ""));
+        return subPrice;
+    }
+
     public double getProductPrice() {
         waitForElementsToBeVisible(productsPrice);
         String[] productPriceArray = productsPrice.get(0).getText().split(" ");
-        String price = productPriceArray[2];
+        System.out.println("array" +productPriceArray[2].replace("Qty", ""));
+        String price = productPriceArray[2].replace("Qty", "");
         double productPrice = Double.parseDouble(price.replaceAll(",", ""));
         return productPrice;
     }

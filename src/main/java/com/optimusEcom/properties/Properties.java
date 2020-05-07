@@ -9,4 +9,5 @@ public class Properties {
 
     public static final String browser = propertiesReader.getBrowser();
 
+    public static final String platformName = propertiesReader.getPlatform();
 }

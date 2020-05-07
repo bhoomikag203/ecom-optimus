@@ -31,4 +31,8 @@ public class PropertiesReader {
     public String getBrowser() {
         return prop.getProperty("browser");
     }
+
+    public String getPlatform(){
+        return prop.getProperty("platformName");
+    }
 }
