@@ -10,4 +10,10 @@ public class Properties {
     public static final String browser = propertiesReader.getBrowser();
 
     public static final String platformName = propertiesReader.getPlatform();
+
+    public static final String automationName = propertiesReader.getAutomationName();
+
+    public static final String deviceName = propertiesReader.getDeviceName();
+
+
 }

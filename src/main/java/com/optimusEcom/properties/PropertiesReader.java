@@ -35,4 +35,14 @@ public class PropertiesReader {
     public String getPlatform(){
         return prop.getProperty("platformName");
     }
+
+    public String getAutomationName(){
+        return prop.getProperty("automationName");
+    }
+
+    public String getDeviceName(){
+        return prop.getProperty("deviceName");
+    }
+
+
 }

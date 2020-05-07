@@ -36,14 +36,16 @@ public class DriverInitialize {
     public WebDriver initialize() {
         String browser = com.optimusEcom.properties.Properties.browser;
         String platformName = Properties.platformName;
+        String deviceName = Properties.deviceName;
+        String automationName = Properties.automationName;
 
         //for mobile view
         if (platformName.equalsIgnoreCase("Android")) {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, browser);
-            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
-            capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
+            capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, automationName);
             try {
                 driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), capabilities);
             } catch (MalformedURLException e) {
