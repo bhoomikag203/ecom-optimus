@@ -1,5 +1,5 @@
 # ecom-optimus
-It’s a simple eCommerce site, where you can add products to cart, searchfor a product etc.
+It’s a simple eCommerce site, where you can add products to cart, search for a product etc.
 
 ## Stories completed
 
