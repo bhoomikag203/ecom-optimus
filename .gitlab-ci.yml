@@ -18,6 +18,8 @@ build:
 
 test:
   stage: test
+  services:
+    - selenium/standalone-chrome:latest
   script:
     - gradle check
     - gradle runTests
