@@ -44,5 +44,9 @@ public class PropertiesReader {
         return prop.getProperty("deviceName");
     }
 
+    public boolean isDockerize(){
+        return Boolean.parseBoolean(prop.getProperty("dockerize"));
+    }
+
 
 }

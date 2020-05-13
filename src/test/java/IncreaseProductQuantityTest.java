@@ -11,8 +11,7 @@ public class IncreaseProductQuantityTest extends BaseTest {
         ProductPage productPage = homePage.searchProduct("Round Neck Shirt");
         String productName = productPage.getProductName();
         cartPage = productPage.addToCart(ProductSize.M, ProductColor.White);
-        double total = cartPage.increaseQuantity(productName, 7);
-        Assert.assertEquals(total, cartPage.getSubTotalPrice());
+        double total = cartPage.increaseQuantity(productName, 7);Assert.assertEquals(total, cartPage.getSubTotalPrice());
     }
 
 }

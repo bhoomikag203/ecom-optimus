@@ -38,6 +38,7 @@ public class DriverInitialize {
         String platformName = Properties.platformName;
         String deviceName = Properties.deviceName;
         String automationName = Properties.automationName;
+        boolean dockerize = Properties.dockerize;
 
         //for mobile view
         if (platformName.equalsIgnoreCase("Android")) {
@@ -57,14 +58,27 @@ public class DriverInitialize {
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addArguments("--headless");
-                driver = new FirefoxDriver(firefoxOptions);
+                try {
+                    if (!dockerize)
+                        driver = new FirefoxDriver(firefoxOptions);
+                    else
+                        driver = new RemoteWebDriver(new URL("http:localhost:4444/wd/hub"), firefoxOptions);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
 
             } else if (browser.equalsIgnoreCase("chrome")) {
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("headless");
-                driver = new ChromeDriver(chromeOptions);
-
+                try {
+                    if (!dockerize)
+                        driver = new ChromeDriver(chromeOptions);
+                    else
+                        driver = new RemoteWebDriver(new URL("http:localhost:4444/wd/hub"), chromeOptions);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
