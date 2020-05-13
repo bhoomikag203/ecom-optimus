@@ -7,6 +7,8 @@ services:
     depends_on:
       - hub
     environment:
+      NODE_MAX_INSTANCES: 5
+      NODE_MAX_SESSION: 5
       HUB_HOST: hub
 
   chrome:
@@ -16,9 +18,14 @@ services:
     depends_on:
       - hub
     environment:
+      NODE_MAX_INSTANCES: 5
+      NODE_MAX_SESSION: 5
       HUB_HOST: hub
 
   hub:
     image: selenium/hub
     ports:
       - "4444:4444"
+    environment:
+      GRID_MAX_SESSION: 20
+      GRID_BROWSER_TIMEOUT: 30000
