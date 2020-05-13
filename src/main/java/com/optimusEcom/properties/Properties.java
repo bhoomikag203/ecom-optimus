@@ -15,7 +15,7 @@ public class Properties {
 
     public static final String deviceName = propertiesReader.getDeviceName();
 
-    public static final boolean dockerize = propertiesReader.isDockerize();
+    public static final boolean runInDocker = propertiesReader.getRunInDocker();
 
 
 }

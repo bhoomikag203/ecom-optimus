@@ -38,7 +38,7 @@ public class DriverInitialize {
         String platformName = Properties.platformName;
         String deviceName = Properties.deviceName;
         String automationName = Properties.automationName;
-        boolean dockerize = Properties.dockerize;
+        boolean runInDocker = Properties.runInDocker;
 
         //for mobile view
         if (platformName.equalsIgnoreCase("Android")) {
@@ -59,7 +59,7 @@ public class DriverInitialize {
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addArguments("--headless");
                 try {
-                    if (!dockerize)
+                    if (!runInDocker)
                         driver = new FirefoxDriver(firefoxOptions);
                     else
                         driver = new RemoteWebDriver(new URL("http:localhost:4444/wd/hub"), firefoxOptions);
@@ -72,7 +72,7 @@ public class DriverInitialize {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("headless");
                 try {
-                    if (!dockerize)
+                    if (!runInDocker)
                         driver = new ChromeDriver(chromeOptions);
                     else
                         driver = new RemoteWebDriver(new URL("http:localhost:4444/wd/hub"), chromeOptions);
