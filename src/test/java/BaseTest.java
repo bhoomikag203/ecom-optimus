@@ -14,7 +14,7 @@ public class BaseTest {
     @BeforeMethod
     public void setup() {
         //Driver initializer
-        driver = new DriverInitialize("chrome").initialize();
+        driver = new DriverInitialize("firefox").initialize();
         wait = new WebDriverWait(driver, 10);
         driver.get(com.optimusEcom.properties.Properties.baseUrl);
     }

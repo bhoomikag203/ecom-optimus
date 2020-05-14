@@ -1,7 +1,10 @@
 package com.optimusEcom.driver;
 
+import com.optimusEcom.browserFactory.ChromeBrowser;
+import com.optimusEcom.browserFactory.FirefoxBrowser;
 import com.optimusEcom.properties.Properties;
 import com.optimusEcom.util.TestUtil;
+import constants.Browsers;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -26,16 +29,26 @@ import java.util.concurrent.TimeUnit;
 //DriverInitializer
 public class DriverInitialize {
     private String browser;
-    public WebDriver driver;
 
     public DriverInitialize(String browser) {
         this.browser = browser;
-        System.out.println("Driver Initializing...");
     }
 
     public WebDriver initialize() {
-        String browser = com.optimusEcom.properties.Properties.browser;
-        String platformName = Properties.platformName;
+        browser = com.optimusEcom.properties.Properties.browser;
+        WebDriver driver = null;
+
+        switch (browser) {
+            case Browsers.CHROME:
+
+                driver = new ChromeBrowser().getDriver();
+                break;
+            case Browsers.FIREFOX:
+                driver = new FirefoxBrowser().getDriver();
+                break;
+        }
+        DriverProvider.setDriver(driver);
+        /*String platformName = Properties.platformName;
         String deviceName = Properties.deviceName;
         String automationName = Properties.automationName;
         boolean runInDocker = Properties.runInDocker;
@@ -81,7 +94,7 @@ public class DriverInitialize {
                 }
             }
 
-        }
+        }*/
 
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
