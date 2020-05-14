@@ -11,15 +11,6 @@
         </classes>
     </test>
     <test name="SecondTestCase">
-        <classes>
-            <class name="AddProductFromFeatureCollectionTest">
-                <methods>
-                    <include name="shouldAddProductFromFeatureCollection"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="ThirdTestCase">
     <classes>
         <class name="ProductAddedToCartTest">
             <methods>
@@ -28,11 +19,20 @@
         </class>
     </classes>
 </test>
-    <test name="FourthTestCase">
+    <test name="ThirdTestCase">
         <classes>
             <class name="AddProductWithMultipleSizeAndColorTest">
                 <methods>
                     <include name="shouldAddProductWithMultipleSizeAndColor"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="FourthTestCase">
+        <classes>
+            <class name="AddProductFromFeatureCollectionTest">
+                <methods>
+                    <include name="shouldAddProductFromFeatureCollection"/>
                 </methods>
             </class>
         </classes>

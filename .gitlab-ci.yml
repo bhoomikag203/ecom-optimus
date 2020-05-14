@@ -1,4 +1,4 @@
-image: gradle:alpine
+image: java
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
@@ -8,7 +8,7 @@ before_script:
 
 build:
   stage: build
-  script: gradle --build-cache assemble
+  script: gradle build
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
