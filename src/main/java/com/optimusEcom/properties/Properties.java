@@ -17,5 +17,7 @@ public class Properties {
 
     public static final boolean runInDocker = propertiesReader.getRunInDocker();
 
+    public static final boolean mobileView = propertiesReader.isMobileView();
+
 
 }

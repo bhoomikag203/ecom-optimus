@@ -32,20 +32,24 @@ public class PropertiesReader {
         return prop.getProperty("browser");
     }
 
-    public String getPlatform(){
+    public String getPlatform() {
         return prop.getProperty("platformName");
     }
 
-    public String getAutomationName(){
+    public String getAutomationName() {
         return prop.getProperty("automationName");
     }
 
-    public String getDeviceName(){
+    public String getDeviceName() {
         return prop.getProperty("deviceName");
     }
 
-    public boolean getRunInDocker(){
+    public boolean getRunInDocker() {
         return Boolean.parseBoolean(prop.getProperty("runInDocker"));
+    }
+
+    public boolean isMobileView() {
+        return Boolean.parseBoolean(prop.getProperty("mobileView"));
     }
 
 
