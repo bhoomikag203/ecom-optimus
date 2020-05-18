@@ -1,4 +1,6 @@
 import com.optimusEcom.pages.*;
+import com.optimusEcom.productConstants.ProductColor;
+import com.optimusEcom.productConstants.ProductSize;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

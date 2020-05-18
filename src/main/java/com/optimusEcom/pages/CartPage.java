@@ -1,10 +1,9 @@
 package com.optimusEcom.pages;
 
+import com.optimusEcom.productConstants.ProductSize;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
