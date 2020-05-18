@@ -1,5 +1,5 @@
 package constants;
 
-public class Platforms {
+public class Platform {
     public static final String ANDROID = "android";
 }

@@ -3,7 +3,6 @@ package com.optimusEcom.platforms;
 import com.optimusEcom.properties.Properties;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;

@@ -37,7 +37,6 @@ public class CartPage extends BasePage {
 
     public CartPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     public String getProductName() {

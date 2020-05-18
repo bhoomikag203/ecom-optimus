@@ -1,6 +1,6 @@
 package constants;
 
-public class Browsers {
+public class Browser {
     public final static String CHROME = "chrome";
     public final static String FIREFOX = "firefox";
 }

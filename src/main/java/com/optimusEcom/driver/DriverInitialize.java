@@ -4,22 +4,14 @@ import com.optimusEcom.browserFactory.ChromeBrowser;
 import com.optimusEcom.browserFactory.FirefoxBrowser;
 import com.optimusEcom.platforms.AndroidPlatform;
 import com.optimusEcom.properties.Properties;
-import constants.Browsers;
-import constants.Platforms;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.MobileCapabilityType;
+import constants.Browser;
+import constants.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 //DriverInitializer
 public class DriverInitialize {
     private String browser;
     private String platformName;
-    private String deviceName = Properties.deviceName;
-    private String automationName = Properties.automationName;
 
     public DriverInitialize(String browser) {
         this.browser = browser;
@@ -30,9 +22,9 @@ public class DriverInitialize {
         platformName = Properties.platformName;
         WebDriver driver = null;
 
-        //mobile view
-        if (platformName.equalsIgnoreCase(Platforms.ANDROID)
-                && browser.equalsIgnoreCase(Browsers.CHROME)) {
+        //run in android mobile/emulator
+        if (platformName.equalsIgnoreCase(Platform.ANDROID)
+                && browser.equalsIgnoreCase(Browser.CHROME)) {
 
             driver = new AndroidPlatform().getDriver();
             return driver;
@@ -40,11 +32,11 @@ public class DriverInitialize {
         }
 
         switch (browser) {
-            case Browsers.CHROME:
+            case Browser.CHROME:
                 driver = new ChromeBrowser().getDriver();
                 break;
 
-            case Browsers.FIREFOX:
+            case Browser.FIREFOX:
                 driver = new FirefoxBrowser().getDriver();
                 break;
 

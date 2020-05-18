@@ -30,7 +30,6 @@ public class ProductPage extends BasePage {
 
     public ProductPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     public CartPage addToCart(ProductSize size, ProductColor color) {

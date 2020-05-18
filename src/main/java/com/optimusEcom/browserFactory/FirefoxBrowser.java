@@ -11,7 +11,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class FirefoxBrowser implements BrowserDriver {
-   private boolean runInDocker = Properties.runInDocker;
+    private boolean runInDocker = Properties.runInDocker;
+    private boolean runInMobileView = Properties.mobileView;
 
     @Override
     public WebDriver getDriver() {
@@ -20,13 +21,29 @@ public class FirefoxBrowser implements BrowserDriver {
         firefoxOptions.addArguments("--headless");
 
         if (runInDocker)
+
             try {
-                return new RemoteWebDriver(new URL("http:localhost:4444/wd/hub"), firefoxOptions);
+                if (runInMobileView)
+                    return new RemoteWebDriver(new URL("http:localhost:4444/wd/hub"), setMobileView(firefoxOptions));
+
+                else
+                    return new RemoteWebDriver(new URL("http:localhost:4444/wd/hub"), firefoxOptions);
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
 
+        if (runInMobileView) {
+            return new FirefoxDriver(setMobileView(firefoxOptions));
+        }
+
         return new FirefoxDriver(firefoxOptions);
+    }
+
+    private FirefoxOptions setMobileView(FirefoxOptions firefoxOptions) {
+        firefoxOptions.addArguments("--width=340");
+        firefoxOptions.addArguments("--height=640");
+        return firefoxOptions;
     }
 
     @Override
