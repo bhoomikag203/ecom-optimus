@@ -18,7 +18,7 @@ public class FirefoxBrowser implements BrowserDriver {
     public WebDriver getDriver() {
         setBinaryPath();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
-//        firefoxOptions.addArguments("--headless");
+        firefoxOptions.addArguments("--headless");
 
         if (runInDocker)
 

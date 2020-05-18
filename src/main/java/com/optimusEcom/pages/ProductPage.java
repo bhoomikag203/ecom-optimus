@@ -1,5 +1,6 @@
 package com.optimusEcom.pages;
 
+import com.optimusEcom.entities.Product;
 import com.optimusEcom.productConstants.ProductSize;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,7 +28,15 @@ public class ProductPage extends BasePage {
         super(driver);
     }
 
-    public CartPage addToCart() {
+    public CartPage addToCart(Product product) {
+        waitForElementToBeVisible(sizeOption);
+        Select selectSize = new Select(sizeOption);
+        selectSize.selectByValue(String.valueOf(product.getSize()));
+
+        waitForElementToBeVisible(colorOption);
+        Select selectColor = new Select(colorOption);
+        selectColor.selectByValue(String.valueOf(product.getColor()));
+
         click(addToCartButton);
         click(viewCartLink);
         return new CartPage(driver);

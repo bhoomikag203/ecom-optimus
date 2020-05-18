@@ -3,8 +3,6 @@ package com.optimusEcom.browserFactory;
 import com.optimusEcom.properties.Properties;
 import constants.Device;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -24,7 +22,7 @@ public class ChromeBrowser implements BrowserDriver {
         setBinaryPath();
 
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("headless");
+//        chromeOptions.addArguments("headless");
 
         if (runInDocker) {
             try {
