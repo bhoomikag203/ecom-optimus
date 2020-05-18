@@ -1,20 +1,21 @@
+import com.optimusEcom.builders.ProductBuilder;
+import com.optimusEcom.entities.Product;
 import com.optimusEcom.pages.*;
-import com.optimusEcom.productConstants.ProductColor;
-import com.optimusEcom.productConstants.ProductSize;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ProductAddedToCartTest extends BaseTest {
-    ProductPage productPage;
 
     @Test
     public void shouldCheckIfProductIsAddedToCart() {
-        productPage = new LoginPage(driver)
+        Product product = new ProductBuilder().withName("Round Neck Shirt 16").
+                build();
+
+        new LoginPage(driver)
                 .login()
-                .searchProduct("Round Neck Shirt 16");
-        String productName = productPage.getProductName();
-        CartPage cartPage = productPage.addToCart(ProductSize.S, ProductColor.White);
-        Assert.assertEquals(cartPage.getProductName(), productName);
+                .searchProduct(product)
+                .addToCart()
+                .assertProductAddedToCart(product);
+
     }
 
 }

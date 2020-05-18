@@ -1,6 +1,5 @@
 package com.optimusEcom.pages;
 
-import com.optimusEcom.productConstants.ProductColor;
 import com.optimusEcom.productConstants.ProductSize;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,36 +14,48 @@ public class ProductPage extends BasePage {
     @FindBy(xpath = "//a[@class='cart-popup__cta-link btn btn--secondary-accent']")
     WebElement viewCartLink;
 
-    @FindBy(className = "product-single__title")
-    WebElement productName;
-
     @FindBy(id = "SingleOptionSelector-0")
     WebElement colorOption;
 
     @FindBy(id = "SingleOptionSelector-1")
     WebElement sizeOption;
 
-    public String getProductName() {
-        return productName.getText();
-    }
+    @FindBy(css = ".cart-popup__dismiss")
+    WebElement continueShoppingButton;
 
     public ProductPage(WebDriver driver) {
         super(driver);
     }
 
-    public CartPage addToCart(ProductSize size, ProductColor color) {
-
-        waitForElementToBeClickable(sizeOption);
-        Select selectSize = new Select(sizeOption);
-        selectSize.selectByValue(String.valueOf(size));
-
-        waitForElementToBeClickable(colorOption);
-        Select selectColor = new Select(colorOption);
-        selectColor.selectByValue(String.valueOf(color));
-
+    public CartPage addToCart() {
         click(addToCartButton);
         click(viewCartLink);
         return new CartPage(driver);
     }
 
+    public CartPage selectProductWithMultipleSizes(ProductSize size1, ProductSize size2) {
+
+        try {
+            waitForElementToBeVisible(sizeOption);
+            Select selectSize = new Select(sizeOption);
+
+            selectSize.selectByValue(String.valueOf(size1));
+            click(addToCartButton);
+
+            waitForElementToBeVisible(continueShoppingButton);
+            click(continueShoppingButton);
+
+            selectSize.selectByValue(String.valueOf(size2));
+            click(addToCartButton);
+
+            waitForElementToBeVisible(viewCartLink);
+            Thread.sleep(500);
+            click(viewCartLink);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return new CartPage(driver);
+    }
 }

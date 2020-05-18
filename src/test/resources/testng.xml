@@ -21,7 +21,7 @@
 </test>
     <test name="ThirdTestCase">
         <classes>
-            <class name="AddProductWithMultipleSizeAndColorTest">
+            <class name="AddProductWithMultipleSizeTest">
                 <methods>
                     <include name="shouldAddProductWithMultipleSizeAndColor"/>
                 </methods>

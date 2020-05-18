@@ -1,13 +1,13 @@
 package com.optimusEcom.pages;
 
+import com.optimusEcom.entities.Product;
 import com.optimusEcom.productConstants.ProductSize;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -25,7 +25,7 @@ public class CartPage extends BasePage {
     @FindBy(css = ".cart__final-price")
     List<WebElement> totalProductsPrice;
 
-    @FindBy(css = ".product-details__item:nth-child(2)")
+    @FindBy(xpath = "//li[contains(text(),'Size')]")
     List<WebElement> sizeList;
 
     @FindBy(name = "updates[]")
@@ -43,7 +43,7 @@ public class CartPage extends BasePage {
         return productsName.get(0).getText();
     }
 
-    public double getSubTotalPrice(){
+    public double getSubTotalPrice() {
         waitForElementToBeVisible(subTotalPrice);
         String[] subTotalPriceArray = subTotalPrice.getText().split(" ");
         String price = subTotalPriceArray[1];
@@ -54,7 +54,7 @@ public class CartPage extends BasePage {
     public double getProductPrice() {
         waitForElementsToBeVisible(productsPrice);
         String[] productPriceArray = productsPrice.get(0).getText().split(" ");
-        System.out.println("array" +productPriceArray[2].replace("Qty", ""));
+        System.out.println("array" + productPriceArray[2].replace("Qty", ""));
         String price = productPriceArray[2].replace("Qty", "");
         double productPrice = Double.parseDouble(price.replaceAll(",", ""));
         return productPrice;
@@ -69,43 +69,44 @@ public class CartPage extends BasePage {
         return totalPrice;
     }
 
-    public String getShirtSize() {
-        String size = (sizeList.get(0).getText().split(" "))[1];
-        System.out.println("Size == " + size);
-        return size;
+    public CartPage increaseQuantity(Product product) {
+        for (int i = 0; i < products.size() - 1; i++) {
+            if (product.getName().equalsIgnoreCase(productsName.get(i).getText())) {
+                productsQuantity.get(i).clear();
+                productsQuantity.get(i).sendKeys(String.valueOf(product.getQuantity()));
+            }
+        }
+        return this;
     }
 
-    public double increaseQuantity(String productName, int count) {
+    public void assertMultipleSizesAddedToCart(ProductSize size1, ProductSize size2) {
+        for (WebElement sizeText : sizeList) {
+            System.out.println("size text "+ sizeText.getText());
+            String size = (sizeText.getText().split(" "))[1];
+            if (size.equals(size1.toString()) || size.equals(size2.toString())) {
+                Assert.assertTrue(true);
+            } else {
+                Assert.assertTrue(false);
+            }
+        }
+    }
+
+    public void assertProductAddedToCart(Product product) {
+        Assert.assertEquals(product.getName(), getProductName());
+    }
+
+    public void assertIncreaseProductQuantity(Product product) {
         double totalPrice = 0;
         try {
-            for (int i = 0; i < products.size() - 1; i++) {
-                if (productName.equalsIgnoreCase(productsName.get(i).getText())) {
-                    productsQuantity.get(i).clear();
-                    productsQuantity.get(i).sendKeys(String.valueOf(count));
-                    Thread.sleep(2000);
-                    driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-                    totalPrice = count * getProductPrice();
-                    DecimalFormat df = new DecimalFormat("####0.00");
-                    totalPrice = Double.valueOf(df.format(totalPrice));
-                }
-            }
+            Thread.sleep(2000);
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            totalPrice = product.getQuantity() * getProductPrice();
+            DecimalFormat df = new DecimalFormat("####0.00");
+            totalPrice = Double.valueOf(df.format(totalPrice));
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
         }
 
-        return totalPrice;
-    }
-
-    public List<ProductSize> getSizeList() {
-        ArrayList<ProductSize> sizes = new ArrayList<>();
-        for (int i = 0; i < sizeList.size(); i++) {
-            String size = (sizeList.get(i).getText().split(" "))[1];
-            ProductSize s = ProductSize.valueOf(size);
-            sizes.add(s);
-        }
-        Collections.sort(sizes);
-        return sizes;
+        Assert.assertEquals(totalPrice, getSubTotalPrice());
     }
 }

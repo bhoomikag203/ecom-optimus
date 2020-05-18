@@ -8,6 +8,8 @@ public class Product {
     int quantity;
     double price;
     ProductSize size;
+    ProductColor color;
+
 
     public String getName() {
         return name;
@@ -29,10 +31,6 @@ public class Product {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public ProductSize getSize() {
         return size;
     }
@@ -49,6 +47,5 @@ public class Product {
         this.color = color;
     }
 
-    ProductColor color;
 
 }

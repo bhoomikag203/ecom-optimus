@@ -1,11 +1,10 @@
 package com.optimusEcom.pages;
 
+import com.optimusEcom.entities.Product;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -30,6 +29,9 @@ public class HomePage extends BasePage {
     @FindBy(css = ".full-width-link")
     List<WebElement> featureCollectionProducts;
 
+    @FindBy(css = ".grid-view-item__image-container")
+    List<WebElement> productNameList;
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -39,18 +41,19 @@ public class HomePage extends BasePage {
         return new CartPage(driver);
     }
 
-    public ProductPage searchProduct(String productName) {
+    public ProductPage searchProduct(Product product) {
         click(searchIcon);
-        sendKeys(searchBox, productName);
+        sendKeys(searchBox, product.getName());
         click(selectProduct);
         return new ProductPage(driver);
     }
 
-    public ProductPage addProductFromFeatureCollection() {
+    public ProductPage selectProductFromFeatureCollection(Product product) {
+        product.setName(productNameList.get(0).getText());
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", featureCollection);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        featureCollectionProducts.get(0).click();
+        click(productNameList.get(0));
         return new ProductPage(driver);
     }
 }

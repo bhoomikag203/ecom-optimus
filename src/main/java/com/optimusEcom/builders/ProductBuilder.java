@@ -7,8 +7,8 @@ import com.optimusEcom.productConstants.ProductSize;
 public class ProductBuilder {
     private Product product;
 
-    public ProductBuilder(Product product) {
-        this.product = product;
+    public ProductBuilder() {
+        product = new Product();
     }
 
     public ProductBuilder withName(String name) {
