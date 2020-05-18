@@ -28,11 +28,20 @@ public class CartPage extends BasePage {
     @FindBy(xpath = "//li[contains(text(),'Size')]")
     List<WebElement> sizeList;
 
+    @FindBy(xpath = "//li[contains(text(),'Size')]")
+    List<WebElement> colorList;
+
     @FindBy(name = "updates[]")
     List<WebElement> productsQuantity;
 
     @FindBy(css = ".cart-subtotal__price")
     WebElement subTotalPrice;
+
+    @FindBy(linkText = "Remove")
+    WebElement removeProductLink;
+
+    @FindBy(css = ".cart--empty-message")
+    WebElement cartEmptyMessage;
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -79,9 +88,15 @@ public class CartPage extends BasePage {
         return this;
     }
 
+    public CartPage removeProduct(Product product) {
+        if (productsName.get(0).getText().equalsIgnoreCase(product.getName()))
+            click(removeProductLink);
+        return new CartPage(driver);
+    }
+
     public void assertMultipleSizesAddedToCart(ProductSize size1, ProductSize size2) {
         for (WebElement sizeText : sizeList) {
-            System.out.println("size text "+ sizeText.getText());
+            System.out.println("size text " + sizeText.getText());
             String size = (sizeText.getText().split(" "))[1];
             if (size.equals(size1.toString()) || size.equals(size2.toString())) {
                 Assert.assertTrue(true);
@@ -108,5 +123,9 @@ public class CartPage extends BasePage {
         }
 
         Assert.assertEquals(totalPrice, getSubTotalPrice());
+    }
+
+    public void assertProductRemovedFromCart() {
+        Assert.assertEquals(cartEmptyMessage.getText(), "Your cart is currently empty.");
     }
 }
