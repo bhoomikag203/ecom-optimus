@@ -103,6 +103,7 @@ public class CartPage extends BasePage {
         for (WebElement sizeText : sizeList) {
             System.out.println("size text " + sizeText.getText());
             String size = (sizeText.getText().split(" "))[1];
+
             if (size.equals(size1.toString()) || size.equals(size2.toString())) {
                 Assert.assertTrue(true);
             } else {
@@ -121,8 +122,10 @@ public class CartPage extends BasePage {
             Thread.sleep(2000);
             driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             totalPrice = product.getQuantity() * getProductPrice();
+
             DecimalFormat df = new DecimalFormat("####0.00");
             totalPrice = Double.valueOf(df.format(totalPrice));
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

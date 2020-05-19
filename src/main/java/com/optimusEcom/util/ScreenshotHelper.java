@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.Reporter;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class ScreenshotHelper {
         File sourceFile = screenShot.getScreenshotAs(OutputType.FILE);
 
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh.mm.ss aa");
         String fileName = (String.format("./screenshots/%s", dateFormat.format(date) + ".png"));
         File destinationFile = new File((fileName));
 
