@@ -47,9 +47,13 @@ public class ChromeBrowser implements BrowserDriver {
 
     private ChromeOptions setMobileView(ChromeOptions chromeOptions) {
         Map<String, String> mobileEmulation = new HashMap<>();
-        mobileEmulation.put("deviceName", Device.GALAXY_S5);
+        mobileEmulation.put("deviceName", getDeviceName());
         chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
         return chromeOptions;
+    }
+
+    private String getDeviceName() {
+        return String.valueOf(Device.Galaxy_S5).replace("_", " ");
     }
 
     @Override

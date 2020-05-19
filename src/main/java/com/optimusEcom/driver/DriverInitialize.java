@@ -23,24 +23,23 @@ public class DriverInitialize {
         WebDriver driver = null;
 
         //run in android mobile/emulator
-        if (platformName.equalsIgnoreCase(Platform.ANDROID)
-                && browser.equalsIgnoreCase(Browser.CHROME)) {
+        if (platformName.equalsIgnoreCase(String.valueOf(Platform.ANDROID))
+                && browser.equalsIgnoreCase(String.valueOf(Browser.CHROME))) {
 
             driver = new AndroidPlatform().getDriver();
             return driver;
 
         }
 
-        switch (browser) {
-            case Browser.CHROME:
-                driver = new ChromeBrowser().getDriver();
-                break;
+        //run in chrome
+        if (browser.equalsIgnoreCase(String.valueOf(Browser.CHROME)))
 
-            case Browser.FIREFOX:
-                driver = new FirefoxBrowser().getDriver();
-                break;
+            driver = new ChromeBrowser().getDriver();
 
-        }
+        //run in firefox
+        else if (browser.equalsIgnoreCase(String.valueOf(Browser.FIREFOX)))
+
+            driver = new FirefoxBrowser().getDriver();
 
         DriverProvider.setDriver(driver);
 
