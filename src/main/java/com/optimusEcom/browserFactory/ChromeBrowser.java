@@ -22,7 +22,7 @@ public class ChromeBrowser implements BrowserDriver {
         setBinaryPath();
 
         ChromeOptions chromeOptions = new ChromeOptions();
-//        chromeOptions.addArguments("headless");
+        chromeOptions.addArguments("headless");
 
         if (runInDocker) {
             try {

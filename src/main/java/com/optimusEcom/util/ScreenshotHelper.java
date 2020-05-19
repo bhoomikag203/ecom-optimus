@@ -7,16 +7,19 @@ import org.openqa.selenium.WebDriver;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class  ScreenshotHelper {
+public class ScreenshotHelper {
 
     public void getScreenshot(WebDriver driver) {
         TakesScreenshot screenShot = ((TakesScreenshot) driver);
 
         File sourceFile = screenShot.getScreenshotAs(OutputType.FILE);
 
-        String fileName = (String.format("./screenshots/%s", UUID.randomUUID().toString() + ".png"));
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        String fileName = (String.format("./screenshots/%s", dateFormat.format(date) + ".png"));
         File destinationFile = new File((fileName));
 
         try {
