@@ -67,4 +67,6 @@ public class ProductPage extends BasePage {
 
         return new CartPage(driver);
     }
+
+
 }

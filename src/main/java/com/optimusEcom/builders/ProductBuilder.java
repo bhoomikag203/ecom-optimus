@@ -9,6 +9,7 @@ public class ProductBuilder {
 
     public ProductBuilder() {
         product = new Product();
+        product.setQuantity(1);
     }
 
     public ProductBuilder withName(String name) {

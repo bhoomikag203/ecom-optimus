@@ -1,3 +1,6 @@
+package cart;
+
+import baseTest.BaseTest;
 import com.optimusEcom.builders.ProductBuilder;
 import com.optimusEcom.entities.Product;
 import com.optimusEcom.pages.*;

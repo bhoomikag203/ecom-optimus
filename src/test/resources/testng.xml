@@ -8,7 +8,7 @@
     </listeners>
     <test name="FirstTestCase">
         <classes>
-            <class name="IncreaseProductQuantityTest">
+            <class name="product.IncreaseProductQuantityTest">
                 <methods>
                     <include name="shouldIncreaseProductQuantity"/>
                 </methods>
@@ -17,7 +17,7 @@
     </test>
     <test name="SecondTestCase">
     <classes>
-        <class name="ProductAddedToCartTest">
+        <class name="cart.AddProductToCartTest">
             <methods>
                 <include name="shouldCheckIfProductIsAddedToCart"/>
             </methods>
@@ -26,7 +26,7 @@
 </test>
     <test name="ThirdTestCase">
         <classes>
-            <class name="AddProductWithMultipleSizeTest">
+            <class name="product.AddProductWithMultipleSizeTest">
                 <methods>
                     <include name="shouldAddProductWithMultipleSizeAndColor"/>
                 </methods>
@@ -35,7 +35,7 @@
     </test>
     <test name="FourthTestCase">
         <classes>
-            <class name="AddProductFromFeatureCollectionTest">
+            <class name="cart.AddProductFromFeatureCollectionTest">
                 <methods>
                     <include name="shouldAddProductFromFeatureCollection"/>
                 </methods>
@@ -44,7 +44,7 @@
     </test>
     <test name="FifthTestCase">
         <classes>
-            <class name="RemoveProductFromCart">
+            <class name="cart.RemoveProductFromCart">
                 <methods>
                     <include name="shouldRemoveProductFromCart"/>
                 </methods>

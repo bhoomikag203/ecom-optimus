@@ -14,31 +14,20 @@ public class CartPage extends BasePage {
 
     @FindBy(className = "cart__row")
     List<WebElement> products;
-
     @FindBy(css = ".cart__price.text-right")
     List<WebElement> productsPrice;
-
     @FindBy(className = "cart__product-title")
     List<WebElement> productsName;
-
-    @FindBy(css = ".cart__final-price")
-    List<WebElement> totalProductsPrice;
-
     @FindBy(xpath = "//li[contains(text(),'Size')]")
     List<WebElement> sizeList;
-
     @FindBy(xpath = "//li[contains(text(),'Color')]")
     List<WebElement> colorList;
-
     @FindBy(css = ".cart__qty [name='updates[]']")
     List<WebElement> productsQuantity;
-
     @FindBy(css = ".cart-subtotal__price")
     WebElement subTotalPrice;
-
     @FindBy(linkText = "Remove")
     WebElement removeProductLink;
-
     @FindBy(css = ".cart--empty-message")
     WebElement cartEmptyMessage;
 
@@ -65,15 +54,6 @@ public class CartPage extends BasePage {
         String price = productPriceArray[2].replace("Qty", "");
         double productPrice = Double.parseDouble(price.replaceAll(",", ""));
         return productPrice;
-    }
-
-
-    public double getTotalPrice() {
-        waitForElementsToBeVisible(totalProductsPrice);
-        String[] productPriceArray = totalProductsPrice.get(0).getText().split(" ");
-        String price = productPriceArray[1];
-        double totalPrice = Double.parseDouble(price.replaceAll(",", ""));
-        return totalPrice;
     }
 
     public CartPage increaseQuantity(Product product) {
@@ -110,7 +90,6 @@ public class CartPage extends BasePage {
 
     public void assertMultipleSizesAddedToCart(ProductSize size1, ProductSize size2) {
         for (WebElement sizeText : sizeList) {
-            System.out.println("size text " + sizeText.getText());
             String size = (sizeText.getText().split(" "))[1];
 
             if (size.equals(size1.toString()) || size.equals(size2.toString())) {
@@ -128,16 +107,11 @@ public class CartPage extends BasePage {
 
     public void assertSubTotal() {
         double totalPrice = 0;
+
         try {
             Thread.sleep(2000);
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
-            for (int i = 0; i < productsName.size(); i++) {
-                totalPrice +=  getProductQuantity(i) * getProductPrice(i);
-
-            }
-            Thread.sleep(2000);
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            for (int i = 0; i < productsName.size(); i++)
+                totalPrice += getProductQuantity(i) * getProductPrice(i);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -148,23 +122,6 @@ public class CartPage extends BasePage {
     public void assertProductAddedToCart(Product product) {
         Assert.assertEquals(product.getName(), getProductName());
     }
-
-    /*public void assertIncreaseProductQuantity(Product product) {
-        double totalPrice = 0;
-        try {
-            Thread.sleep(2000);
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-            totalPrice = product.getQuantity() * getProductPrice(0);
-
-            DecimalFormat df = new DecimalFormat("####0.00");
-            totalPrice = Double.valueOf(df.format(totalPrice));
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        Assert.assertEquals(totalPrice, getSubTotalPrice());
-    }*/
 
     public void assertProductRemovedFromCart() {
         waitForElementToBeVisible(cartEmptyMessage);

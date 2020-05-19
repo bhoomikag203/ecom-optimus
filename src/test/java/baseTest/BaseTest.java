@@ -1,3 +1,5 @@
+package baseTest;
+
 import com.optimusEcom.driver.DriverInitialize;
 import com.optimusEcom.util.ScreenshotHelper;
 import org.openqa.selenium.WebDriver;

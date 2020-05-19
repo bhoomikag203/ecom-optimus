@@ -1,8 +1,8 @@
 package com.optimusEcom.properties;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesReader {
@@ -11,8 +11,11 @@ public class PropertiesReader {
     public PropertiesReader() {
         prop = new Properties();
         try {
-            FileInputStream ip = new FileInputStream("src/main/resources/config.properties");
-            prop.load(ip);
+            String env = SystemProperties.ENV;
+            String propertyFilePath = env + ".properties";
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(propertyFilePath);
+
+            prop.load(inputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
