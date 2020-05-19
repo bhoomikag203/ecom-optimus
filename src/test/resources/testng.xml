@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite"  parallel="tests" thread-count="4" verbose="1" >
+<suite name="All Test Suite"  parallel="tests" thread-count="5" verbose="1" >
     <test name="FirstTestCase">
         <classes>
             <class name="IncreaseProductQuantityTest">
@@ -33,6 +33,15 @@
             <class name="AddProductFromFeatureCollectionTest">
                 <methods>
                     <include name="shouldAddProductFromFeatureCollection"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="FifthTestCase">
+        <classes>
+            <class name="RemoveProductFromCart">
+                <methods>
+                    <include name="shouldRemoveProductFromCart"/>
                 </methods>
             </class>
         </classes>

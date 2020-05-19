@@ -28,7 +28,7 @@ public class CartPage extends BasePage {
     @FindBy(xpath = "//li[contains(text(),'Size')]")
     List<WebElement> sizeList;
 
-    @FindBy(xpath = "//li[contains(text(),'Size')]")
+    @FindBy(xpath = "//li[contains(text(),'Color')]")
     List<WebElement> colorList;
 
     @FindBy(name = "updates[]")
@@ -89,9 +89,14 @@ public class CartPage extends BasePage {
     }
 
     public CartPage removeProduct(Product product) {
-        if (productsName.get(0).getText().equalsIgnoreCase(product.getName()))
-            click(removeProductLink);
-        return new CartPage(driver);
+        waitForElementsToBeVisible(productsName);
+        for (int i = 0; i < productsName.size(); i++) {
+            if (productsName.get(i).getText().equalsIgnoreCase(product.getName())
+                    && sizeList.get(i).getText().split(" ")[1].equalsIgnoreCase(String.valueOf(product.getSize()))
+                    && colorList.get(i).getText().split(" ")[1].equalsIgnoreCase(String.valueOf(product.getColor())))
+                click(removeProductLink);
+        }
+        return this;
     }
 
     public void assertMultipleSizesAddedToCart(ProductSize size1, ProductSize size2) {
@@ -126,6 +131,7 @@ public class CartPage extends BasePage {
     }
 
     public void assertProductRemovedFromCart() {
+        waitForElementToBeVisible(cartEmptyMessage);
         Assert.assertEquals(cartEmptyMessage.getText(), "Your cart is currently empty.");
     }
 }
