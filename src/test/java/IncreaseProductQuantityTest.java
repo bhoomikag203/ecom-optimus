@@ -20,7 +20,7 @@ public class IncreaseProductQuantityTest extends BaseTest {
                 .searchProduct(product)
                 .addToCart(product)
                 .increaseQuantity(product)
-                .assertIncreaseProductQuantity(product);
+                .assertSubTotal();
 
     }
 

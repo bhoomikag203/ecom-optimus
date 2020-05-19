@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +30,7 @@ public class CartPage extends BasePage {
     @FindBy(xpath = "//li[contains(text(),'Color')]")
     List<WebElement> colorList;
 
-    @FindBy(name = "updates[]")
+    @FindBy(css = ".cart__qty [name='updates[]']")
     List<WebElement> productsQuantity;
 
     @FindBy(css = ".cart-subtotal__price")
@@ -60,10 +59,9 @@ public class CartPage extends BasePage {
         return subPrice;
     }
 
-    public double getProductPrice() {
+    public double getProductPrice(int i) {
         waitForElementsToBeVisible(productsPrice);
-        String[] productPriceArray = productsPrice.get(0).getText().split(" ");
-        System.out.println("array" + productPriceArray[2].replace("Qty", ""));
+        String[] productPriceArray = productsPrice.get(i).getText().split(" ");
         String price = productPriceArray[2].replace("Qty", "");
         double productPrice = Double.parseDouble(price.replaceAll(",", ""));
         return productPrice;
@@ -88,14 +86,25 @@ public class CartPage extends BasePage {
         return this;
     }
 
+    public String getSize(int i) {
+        return sizeList.get(i).getText().split(" ")[1];
+    }
+
+    public String getColor(int i) {
+        return colorList.get(i).getText().split(" ")[1];
+    }
+
     public CartPage removeProduct(Product product) {
         waitForElementsToBeVisible(productsName);
+
         for (int i = 0; i < productsName.size(); i++) {
             if (productsName.get(i).getText().equalsIgnoreCase(product.getName())
-                    && sizeList.get(i).getText().split(" ")[1].equalsIgnoreCase(String.valueOf(product.getSize()))
-                    && colorList.get(i).getText().split(" ")[1].equalsIgnoreCase(String.valueOf(product.getColor())))
+                    && getSize(i).equalsIgnoreCase(String.valueOf(product.getSize()))
+                    && getColor(i).equalsIgnoreCase(String.valueOf(product.getColor())))
+
                 click(removeProductLink);
         }
+
         return this;
     }
 
@@ -112,16 +121,40 @@ public class CartPage extends BasePage {
         }
     }
 
-    public void assertProductAddedToCart(Product product) {
-        Assert.assertEquals(product.getName(), getProductName());
+    public int getProductQuantity(int i) {
+        String text = productsQuantity.get(i).getAttribute("value");
+        return Integer.parseInt(text);
     }
 
-    public void assertIncreaseProductQuantity(Product product) {
+    public void assertSubTotal() {
         double totalPrice = 0;
         try {
             Thread.sleep(2000);
             driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-            totalPrice = product.getQuantity() * getProductPrice();
+
+            for (int i = 0; i < productsName.size(); i++) {
+                totalPrice +=  getProductQuantity(i) * getProductPrice(i);
+
+            }
+            Thread.sleep(2000);
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(totalPrice, getSubTotalPrice());
+    }
+
+    public void assertProductAddedToCart(Product product) {
+        Assert.assertEquals(product.getName(), getProductName());
+    }
+
+    /*public void assertIncreaseProductQuantity(Product product) {
+        double totalPrice = 0;
+        try {
+            Thread.sleep(2000);
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            totalPrice = product.getQuantity() * getProductPrice(0);
 
             DecimalFormat df = new DecimalFormat("####0.00");
             totalPrice = Double.valueOf(df.format(totalPrice));
@@ -131,7 +164,7 @@ public class CartPage extends BasePage {
         }
 
         Assert.assertEquals(totalPrice, getSubTotalPrice());
-    }
+    }*/
 
     public void assertProductRemovedFromCart() {
         waitForElementToBeVisible(cartEmptyMessage);
