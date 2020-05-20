@@ -1,5 +1,6 @@
 package com.optimusEcom.pages;
 
+import com.optimusEcom.util.ScreenshotHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -29,11 +30,13 @@ public class BasePage {
     protected void click(WebElement element) {
         waitForElementToBeVisible(element);
         waitForElementToBeClickable(element);
+        new ScreenshotHelper().getScreenshot(driver);
         element.click();
     }
 
     protected void sendKeys(WebElement element, String keysToSend) {
         waitForElementToBeVisible(element);
+        new ScreenshotHelper().getScreenshot(driver);
         element.sendKeys(keysToSend);
     }
 
