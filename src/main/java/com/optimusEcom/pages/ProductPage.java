@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 public class ProductPage extends BasePage {
 
     @FindBy(name = "add")
@@ -23,6 +25,9 @@ public class ProductPage extends BasePage {
 
     @FindBy(css = ".cart-popup__dismiss")
     WebElement continueShoppingButton;
+
+    @FindBy(css = ".site-header__cart")
+    WebElement cartIcon;
 
     public ProductPage(WebDriver driver) {
         super(driver);
@@ -42,29 +47,20 @@ public class ProductPage extends BasePage {
         return new CartPage(driver);
     }
 
-    public CartPage selectProductWithMultipleSizes(ProductSize size1, ProductSize size2) {
-
-        try {
+    public CartPage selectProductWithMultipleSizes(List<ProductSize> sizes) {
+        for (ProductSize size : sizes) {
             waitForElementToBeVisible(sizeOption);
             Select selectSize = new Select(sizeOption);
 
-            selectSize.selectByValue(String.valueOf(size1));
+            selectSize.selectByValue(String.valueOf(size));
             click(addToCartButton);
 
             waitForElementToBeVisible(continueShoppingButton);
             click(continueShoppingButton);
-
-            selectSize.selectByValue(String.valueOf(size2));
-            click(addToCartButton);
-
-            waitForElementToBeVisible(viewCartLink);
-            Thread.sleep(500);
-            click(viewCartLink);
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
+        waitForElementToBeVisible(cartIcon);
+        click(cartIcon);
         return new CartPage(driver);
     }
 

@@ -7,16 +7,22 @@ import com.optimusEcom.pages.*;
 import com.optimusEcom.productConstants.ProductSize;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class AddProductWithMultipleSizeTest extends BaseTest {
 
     @Test
-    public void shouldAddProductWithMultipleSizeAndColor() {
+    public void shouldAddProductWithMultipleSize() {
         Product product = new ProductBuilder().withName("Round Neck Shirt 16").build();
+        List<ProductSize> productSizes = new ArrayList<>();
+        productSizes.add(ProductSize.S);
+        productSizes.add(ProductSize.M);
 
         new LoginPage(driver).login()
                 .searchProduct(product)
-                .selectProductWithMultipleSizes(ProductSize.M, ProductSize.S)
-                .assertMultipleSizesAddedToCart(ProductSize.M, ProductSize.S);
+                .selectProductWithMultipleSizes(productSizes)
+                .assertMultipleSizesAddedToCart(product, productSizes);
     }
 }

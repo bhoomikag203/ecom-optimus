@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -88,16 +90,20 @@ public class CartPage extends BasePage {
         return this;
     }
 
-    public void assertMultipleSizesAddedToCart(ProductSize size1, ProductSize size2) {
-        for (WebElement sizeText : sizeList) {
-            String size = (sizeText.getText().split(" "))[1];
-
-            if (size.equals(size1.toString()) || size.equals(size2.toString())) {
-                Assert.assertTrue(true);
-            } else {
-                Assert.assertTrue(false);
+    public void assertMultipleSizesAddedToCart(Product product, List<ProductSize> productSizes) {
+        List<String> sizes = new ArrayList<>();
+        List<String> s =new ArrayList<>();
+        for (int i = 0; i < productSizes.size(); i++) {
+            if (product.getName().equalsIgnoreCase(productsName.get(i).getText())) {
+                System.out.println("getsize = " + getSize(i));
+                System.out.println("productsize = " + getSize(i));
+                sizes.add(getSize(i));
+                s.add(String.valueOf(productSizes.get(i)));
             }
         }
+        Collections.sort(s);
+        Collections.sort(sizes);
+        Assert.assertEquals(s, sizes);
     }
 
     public int getProductQuantity(int i) {
