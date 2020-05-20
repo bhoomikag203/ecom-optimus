@@ -15,7 +15,6 @@ public class IncreaseProductQuantityTest extends BaseTest {
         Product product = new ProductBuilder().withName("Round Neck Shirt 16")
                 .withSize(ProductSize.M)
                 .withColor(ProductColor.White)
-                .withQuantity(4)
                 .build();
 
         new LoginPage(driver)

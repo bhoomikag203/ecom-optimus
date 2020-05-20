@@ -30,13 +30,11 @@ public class BasePage {
     protected void click(WebElement element) {
         waitForElementToBeVisible(element);
         waitForElementToBeClickable(element);
-        new ScreenshotHelper().getScreenshot(driver);
         element.click();
     }
 
     protected void sendKeys(WebElement element, String keysToSend) {
         waitForElementToBeVisible(element);
-        new ScreenshotHelper().getScreenshot(driver);
         element.sendKeys(keysToSend);
     }
 
