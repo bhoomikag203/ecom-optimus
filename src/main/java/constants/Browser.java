@@ -1,5 +1,6 @@
 package constants;
 
-public enum Browser {
-    CHROME, FIREFOX
+public class Browser {
+    public final static String CHROME = "chrome";
+    public final static String FIREFOX = "firefox";
 }

@@ -22,7 +22,7 @@ public class ChromeBrowser implements BrowserDriver {
         setBinaryPath();
 
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("headless");
+//        chromeOptions.addArguments("headless");
 
         if (runInDocker) {
             try {
@@ -47,13 +47,9 @@ public class ChromeBrowser implements BrowserDriver {
 
     private ChromeOptions setMobileView(ChromeOptions chromeOptions) {
         Map<String, String> mobileEmulation = new HashMap<>();
-        mobileEmulation.put("deviceName", getDeviceName());
+        mobileEmulation.put("deviceName", Device.GALAXY_S5);
         chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
         return chromeOptions;
-    }
-
-    private String getDeviceName() {
-        return String.valueOf(Device.Galaxy_S5).replace("_", " ");
     }
 
     @Override

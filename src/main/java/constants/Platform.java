@@ -1,5 +1,5 @@
 package constants;
 
-public enum Platform {
-    ANDROID
+public class Platform {
+    public static final String ANDROID = "android";
 }

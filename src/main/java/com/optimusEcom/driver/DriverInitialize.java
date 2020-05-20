@@ -4,6 +4,7 @@ import com.optimusEcom.browserFactory.ChromeBrowser;
 import com.optimusEcom.browserFactory.FirefoxBrowser;
 import com.optimusEcom.platforms.AndroidPlatform;
 import com.optimusEcom.properties.Properties;
+import com.optimusEcom.properties.SystemProperties;
 import constants.Browser;
 import constants.Platform;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 public class DriverInitialize {
     private String browser;
     private String platformName;
+    public WebDriver driver;
 
     public DriverInitialize(String browser) {
         this.browser = browser;
@@ -20,29 +22,37 @@ public class DriverInitialize {
     public WebDriver initialize() {
         browser = Properties.browser;
         platformName = Properties.platformName;
-        WebDriver driver = null;
 
-        //run in android mobile/emulator
-        if (platformName.equalsIgnoreCase(String.valueOf(Platform.ANDROID))
-                && browser.equalsIgnoreCase(String.valueOf(Browser.CHROME))) {
+        if(SystemProperties.ENV.equalsIgnoreCase("androidEnvironment")){
+            if (platformName.equalsIgnoreCase(Platform.ANDROID)
+                    && browser.equalsIgnoreCase(Browser.CHROME)) {
 
-            driver = new AndroidPlatform().getDriver();
-            return driver;
+                driver = new AndroidPlatform().getDriver();
+                return driver;
+
+            }
 
         }
 
-        //run in chrome
-        if (browser.equalsIgnoreCase(String.valueOf(Browser.CHROME)))
+        switch (browser) {
+            case Browser.CHROME:
+                driver = new ChromeBrowser().getDriver();
+                break;
 
-            driver = new ChromeBrowser().getDriver();
+            case Browser.FIREFOX:
+                driver = new FirefoxBrowser().getDriver();
+                break;
 
-        //run in firefox
-        else if (browser.equalsIgnoreCase(String.valueOf(Browser.FIREFOX)))
-
-            driver = new FirefoxBrowser().getDriver();
+        }
 
         DriverProvider.setDriver(driver);
 
+        return driver;
+    }
+
+    public WebDriver setUp() {
+        driver = initialize();
+        driver.get(Properties.baseUrl);
         return driver;
     }
 
