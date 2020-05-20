@@ -13,9 +13,10 @@ public class RemoveProductFromCart extends BaseTest {
             .withSize(ProductSize.M)
             .withColor(ProductColor.White)
             .build();
+
     @Test
-    public void shouldRemoveProductFromCart(){
-        new LoginPage(driver)
+    public void shouldRemoveProductFromCart() {
+        page.getInstance(LoginPage.class)
                 .login()
                 .searchProduct(product)
                 .addToCart(product)

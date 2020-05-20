@@ -1,6 +1,7 @@
 package com.optimusEcom.pages;
 
 import com.optimusEcom.entities.Product;
+import com.optimusEcom.productConstants.ProductColor;
 import com.optimusEcom.productConstants.ProductSize;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +12,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class CartPage extends BasePage {
@@ -64,6 +66,7 @@ public class CartPage extends BasePage {
             if (product.getName().equalsIgnoreCase(productsName.get(i).getText())) {
                 productsQuantity.get(i).clear();
                 productsQuantity.get(i).sendKeys(String.valueOf(count));
+                product.setQuantity(count);
             }
         }
         return this;
@@ -83,17 +86,25 @@ public class CartPage extends BasePage {
         for (int i = 0; i < productsName.size(); i++) {
             if (productsName.get(i).getText().equalsIgnoreCase(product.getName())
                     && getSize(i).equalsIgnoreCase(String.valueOf(product.getSize()))
-                    && getColor(i).equalsIgnoreCase(String.valueOf(product.getColor())))
+                    && getColor(i).equalsIgnoreCase(String.valueOf(product.getColor()))) {
 
                 click(removeProductLink);
+                cart.removeProductFromCart(product);
+            }
+
         }
 
         return this;
     }
 
     public void assertMultipleSizesAddedToCart(Product product, List<ProductSize> productSizes) {
+        getProducts();
+        printProducts();
+        System.out.println("============================");
+        cart.printProducts();
         List<String> sizeListOne = new ArrayList<>();
         List<String> sizesListTwo = new ArrayList<>();
+
 
         for (int i = 0; i < productSizes.size(); i++) {
             if (product.getName().equalsIgnoreCase(productsName.get(i).getText())) {
@@ -104,6 +115,8 @@ public class CartPage extends BasePage {
         Collections.sort(sizeListOne);
         Collections.sort(sizesListTwo);
         Assert.assertEquals(sizeListOne, sizesListTwo);
+//        if(getProduct(product).equals(product))
+
     }
 
     public int getProductQuantity(int i) {
@@ -134,6 +147,9 @@ public class CartPage extends BasePage {
     }
 
     public void assertProductAddedToCart(Product product) {
+        getProduct(product);
+        System.out.println("Product added");
+        printProduct(product);
         Assert.assertEquals(product.getName(), getProductName());
     }
 
@@ -141,4 +157,52 @@ public class CartPage extends BasePage {
         waitForElementToBeVisible(cartEmptyMessage);
         Assert.assertEquals(cartEmptyMessage.getText(), "Your cart is currently empty.");
     }
+
+    public List<Product> getProducts() {
+        List<Product> products = new ArrayList<>();
+        for (int i = 0; i < productsName.size(); i++) {
+            Product product = new Product();
+            product.setName(productsName.get(i).getText());
+            product.setQuantity(Integer.parseInt(String.valueOf(getProductQuantity(i))));
+            product.setPrice(getProductPrice(i));
+            product.setSize(ProductSize.valueOf(getSize(i)));
+            product.setColor(ProductColor.valueOf(getColor(i)));
+            products.add(product);
+        }
+        return products;
+    }
+
+    public Product getProduct(Product product) {
+        for (Product p : getProducts()) {
+            System.out.println("=========");
+            System.out.println(" product from cart");
+
+            printProduct(p);
+            Assert.assertEquals(p, product);
+
+            if (Objects.equals(p, product)) {
+                Assert.assertEquals(p, product);
+                System.out.println("TRUE!!!!!");
+                return product;
+            }
+        }
+        return product;
+    }
+
+    public void printProducts() {
+        for (Product product :
+                getProducts()) {
+            printProduct(product);
+        }
+    }
+
+    public void printProduct(Product product) {
+        System.out.println(product);
+        System.out.println(product.getName());
+        System.out.println(product.getQuantity());
+        System.out.println(product.getSize());
+        System.out.println(product.getColor());
+        System.out.println(product.getPrice());
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.optimusEcom.pages;
 
+import com.optimusEcom.entities.Cart;
 import com.optimusEcom.util.ScreenshotHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,13 +10,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class BasePage {
+public class BasePage extends PageGenerator {
     public WebDriver driver;
     protected WebDriverWait wait;
+    Cart cart = new Cart();
 
     public BasePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
+        super(driver);
         wait = new WebDriverWait(driver, 10);
     }
 

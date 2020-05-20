@@ -1,5 +1,6 @@
 package com.optimusEcom.pages;
 
+import com.optimusEcom.entities.Cart;
 import com.optimusEcom.entities.Product;
 import com.optimusEcom.productConstants.ProductSize;
 import org.openqa.selenium.WebDriver;
@@ -29,9 +30,13 @@ public class ProductPage extends BasePage {
     @FindBy(css = ".site-header__cart")
     WebElement cartIcon;
 
+    @FindBy(css = ".price-item")
+    WebElement productPrice;
+
     public ProductPage(WebDriver driver) {
         super(driver);
     }
+
 
     public CartPage addToCart(Product product) {
         waitForElementToBeVisible(sizeOption);
@@ -42,18 +47,23 @@ public class ProductPage extends BasePage {
         Select selectColor = new Select(colorOption);
         selectColor.selectByValue(String.valueOf(product.getColor()));
 
+        buildProduct(product);
         click(addToCartButton);
         click(viewCartLink);
-        return new CartPage(driver);
+        cart.addProductToCart(product);
+        return this.getInstance(CartPage.class);
     }
 
-    public CartPage selectProductWithMultipleSizes(List<ProductSize> sizes) {
+    public CartPage selectProductWithMultipleSizes(Product product, List<ProductSize> sizes) {
         for (ProductSize size : sizes) {
             waitForElementToBeVisible(sizeOption);
             Select selectSize = new Select(sizeOption);
 
             selectSize.selectByValue(String.valueOf(size));
+
+            buildProduct(product);
             click(addToCartButton);
+            cart.addProductToCart(product);
 
             waitForElementToBeVisible(continueShoppingButton);
             click(continueShoppingButton);
@@ -61,8 +71,19 @@ public class ProductPage extends BasePage {
 
         waitForElementToBeVisible(cartIcon);
         click(cartIcon);
-        return new CartPage(driver);
+        return this.getInstance(CartPage.class);
     }
 
+    public void buildProduct(Product product) {
+        product.setPrice(getProductPrice());
+    }
+
+    private double getProductPrice() {
+        waitForElementToBeVisible(productPrice);
+        String[] productPriceArray = productPrice.getText().split(" ");
+        String price = productPriceArray[1];
+        double productPrice = Double.parseDouble(price.replaceAll(",", ""));
+        return productPrice;
+    }
 
 }

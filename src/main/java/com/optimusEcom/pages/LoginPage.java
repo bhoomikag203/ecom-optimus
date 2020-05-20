@@ -25,6 +25,6 @@ public class LoginPage extends BasePage {
         click(enterUsingPasswordLink);
         sendKeys(password,Properties.password);
         click(enterButton);
-        return new HomePage(driver);
+        return this.getInstance(HomePage.class);
     }
 }

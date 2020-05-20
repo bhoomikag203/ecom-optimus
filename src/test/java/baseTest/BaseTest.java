@@ -1,6 +1,7 @@
 package baseTest;
 
 import com.optimusEcom.driver.DriverInitialize;
+import com.optimusEcom.pages.PageGenerator;
 import com.optimusEcom.util.ScreenshotHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,12 +13,14 @@ import org.testng.internal.TestResult;
 public class BaseTest {
     public WebDriver driver;
     public WebDriverWait wait;
+    public PageGenerator page;
 
     @BeforeMethod
     public void setup() {
         //Driver initializer
         driver = new DriverInitialize("firefox").setUp();
         wait = new WebDriverWait(driver, 10);
+        page = new PageGenerator(driver);
     }
 
     @AfterMethod

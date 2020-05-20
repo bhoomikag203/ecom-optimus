@@ -17,11 +17,11 @@ public class IncreaseProductQuantityTest extends BaseTest {
                 .withColor(ProductColor.White)
                 .build();
 
-        new LoginPage(driver)
+        page.getInstance(LoginPage.class)
                 .login()
                 .searchProduct(product)
                 .addToCart(product)
-                .increaseQuantity(product,10)
+                .increaseQuantity(product, 10)
                 .assertSubTotal();
 
     }

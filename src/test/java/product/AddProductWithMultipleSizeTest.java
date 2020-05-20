@@ -20,9 +20,10 @@ public class AddProductWithMultipleSizeTest extends BaseTest {
         productSizes.add(ProductSize.S);
         productSizes.add(ProductSize.M);
 
-        new LoginPage(driver).login()
+        page.getInstance(LoginPage.class)
+                .login()
                 .searchProduct(product)
-                .selectProductWithMultipleSizes(productSizes)
+                .selectProductWithMultipleSizes(product, productSizes)
                 .assertMultipleSizesAddedToCart(product, productSizes);
     }
 }

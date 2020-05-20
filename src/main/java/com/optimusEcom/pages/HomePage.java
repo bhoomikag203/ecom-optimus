@@ -26,9 +26,6 @@ public class HomePage extends BasePage {
     @FindBy(css = "div.shopify-section.index-section:nth-child(3)")
     WebElement featureCollection;
 
-    @FindBy(css = ".full-width-link")
-    List<WebElement> featureCollectionProducts;
-
     @FindBy(css = ".grid-view-item__image-container")
     List<WebElement> productNameList;
 
@@ -45,7 +42,7 @@ public class HomePage extends BasePage {
         click(searchIcon);
         sendKeys(searchBox, product.getName());
         click(selectProduct);
-        return new ProductPage(driver);
+        return this.getInstance(ProductPage.class);
     }
 
     public ProductPage selectProductFromFeatureCollection(Product product) {
@@ -54,6 +51,6 @@ public class HomePage extends BasePage {
         js.executeScript("arguments[0].scrollIntoView();", featureCollection);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         click(productNameList.get(0));
-        return new ProductPage(driver);
+        return this.getInstance(ProductPage.class);
     }
 }

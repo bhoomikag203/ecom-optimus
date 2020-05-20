@@ -12,12 +12,13 @@ public class AddProductFromFeatureCollectionTest extends BaseTest {
 
     @Test
     public void shouldAddProductFromFeatureCollection() {
-        Product product=new ProductBuilder()
+        Product product = new ProductBuilder()
                 .withSize(ProductSize.M)
                 .withColor(ProductColor.White)
                 .build();
 
-        new LoginPage(driver).login()
+        page.getInstance(LoginPage.class)
+                .login()
                 .selectProductFromFeatureCollection(product)
                 .addToCart(product)
                 .assertProductAddedToCart(product);
