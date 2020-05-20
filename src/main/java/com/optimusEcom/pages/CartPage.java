@@ -91,19 +91,18 @@ public class CartPage extends BasePage {
     }
 
     public void assertMultipleSizesAddedToCart(Product product, List<ProductSize> productSizes) {
-        List<String> sizes = new ArrayList<>();
-        List<String> s =new ArrayList<>();
+        List<String> sizeListOne = new ArrayList<>();
+        List<String> sizesListTwo = new ArrayList<>();
+
         for (int i = 0; i < productSizes.size(); i++) {
             if (product.getName().equalsIgnoreCase(productsName.get(i).getText())) {
-                System.out.println("getsize = " + getSize(i));
-                System.out.println("productsize = " + getSize(i));
-                sizes.add(getSize(i));
-                s.add(String.valueOf(productSizes.get(i)));
+                sizeListOne.add(getSize(i));
+                sizesListTwo.add(String.valueOf(productSizes.get(i)));
             }
         }
-        Collections.sort(s);
-        Collections.sort(sizes);
-        Assert.assertEquals(s, sizes);
+        Collections.sort(sizeListOne);
+        Collections.sort(sizesListTwo);
+        Assert.assertEquals(sizeListOne, sizesListTwo);
     }
 
     public int getProductQuantity(int i) {
