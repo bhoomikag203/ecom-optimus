@@ -21,7 +21,7 @@ public class IncreaseProductQuantityTest extends BaseTest {
                 .login()
                 .searchProduct(product)
                 .addToCart(product)
-                .increaseQuantity(product)
+                .increaseQuantity(product,10)
                 .assertSubTotal();
 
     }

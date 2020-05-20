@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -58,11 +59,11 @@ public class CartPage extends BasePage {
         return productPrice;
     }
 
-    public CartPage increaseQuantity(Product product) {
+    public CartPage increaseQuantity(Product product, int count) {
         for (int i = 0; i < products.size() - 1; i++) {
             if (product.getName().equalsIgnoreCase(productsName.get(i).getText())) {
                 productsQuantity.get(i).clear();
-                productsQuantity.get(i).sendKeys(String.valueOf(product.getQuantity()));
+                productsQuantity.get(i).sendKeys(String.valueOf(count));
             }
         }
         return this;
@@ -121,7 +122,15 @@ public class CartPage extends BasePage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        totalPrice = formatPrice(totalPrice);
         Assert.assertEquals(totalPrice, getSubTotalPrice());
+    }
+
+    private double formatPrice(double price) {
+        DecimalFormat decimalFormat = new DecimalFormat("####.00");
+        String formattedPrice = decimalFormat.format(price);
+        return Double.parseDouble(formattedPrice);
     }
 
     public void assertProductAddedToCart(Product product) {
