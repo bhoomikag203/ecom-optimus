@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AddProductWithMultipleSizeTest extends BaseTest {
 
-    @Test
+    /*@Test
     public void shouldAddProductWithMultipleSize() {
         Product product = new ProductBuilder().withName("Round Neck Shirt 16").build();
         List<ProductSize> productSizes = new ArrayList<>();
@@ -25,5 +25,5 @@ public class AddProductWithMultipleSizeTest extends BaseTest {
                 .searchProduct(product)
                 .selectProductWithMultipleSizes(product, productSizes)
                 .assertMultipleSizesAddedToCart(product, productSizes);
-    }
+    }*/
 }

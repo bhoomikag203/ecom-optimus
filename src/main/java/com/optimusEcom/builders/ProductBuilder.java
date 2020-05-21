@@ -17,6 +17,11 @@ public class ProductBuilder {
         return this;
     }
 
+    public ProductBuilder withPrice(double price) {
+        product.setPrice(price);
+        return this;
+    }
+
     public ProductBuilder withQuantity(int quantity) {
         product.setQuantity(quantity);
         return this;

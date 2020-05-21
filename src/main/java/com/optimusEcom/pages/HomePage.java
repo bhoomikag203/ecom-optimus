@@ -46,10 +46,7 @@ public class HomePage extends BasePage {
     }
 
     public ProductPage selectProductFromFeatureCollection(Product product) {
-        product.setName(productNameList.get(0).getText());
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView();", featureCollection);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        waitForElementToBeVisible(featureCollection);
         click(productNameList.get(0));
         return this.getInstance(ProductPage.class);
     }

@@ -2,6 +2,7 @@ package cart;
 
 import baseTest.BaseTest;
 import com.optimusEcom.builders.ProductBuilder;
+import com.optimusEcom.entities.Cart;
 import com.optimusEcom.entities.Product;
 import com.optimusEcom.pages.*;
 import com.optimusEcom.productConstants.ProductColor;
@@ -17,11 +18,13 @@ public class AddProductFromFeatureCollectionTest extends BaseTest {
                 .withColor(ProductColor.White)
                 .build();
 
+        Cart cart = new Cart();
+
         page.getInstance(LoginPage.class)
                 .login()
                 .selectProductFromFeatureCollection(product)
-                .addToCart(product)
-                .assertProductAddedToCart(product);
+                .addToCart(product, cart)
+                .assertProductAddedToCart(product, cart);
     }
 
 }

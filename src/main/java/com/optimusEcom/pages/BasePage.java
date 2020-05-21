@@ -13,7 +13,6 @@ import java.util.List;
 public class BasePage extends PageGenerator {
     public WebDriver driver;
     protected WebDriverWait wait;
-    Cart cart = new Cart();
 
     public BasePage(WebDriver driver) {
         super(driver);

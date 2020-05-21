@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class IncreaseProductQuantityTest extends BaseTest {
 
-    @Test
+   /* @Test
     public void shouldIncreaseProductQuantity() {
         Product product = new ProductBuilder().withName("Round Neck Shirt 16")
                 .withSize(ProductSize.M)
@@ -25,5 +25,5 @@ public class IncreaseProductQuantityTest extends BaseTest {
                 .assertSubTotal();
 
     }
-
+*/
 }

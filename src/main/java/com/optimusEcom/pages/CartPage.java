@@ -1,5 +1,6 @@
 package com.optimusEcom.pages;
 
+import com.optimusEcom.entities.Cart;
 import com.optimusEcom.entities.Product;
 import com.optimusEcom.productConstants.ProductColor;
 import com.optimusEcom.productConstants.ProductSize;
@@ -80,28 +81,21 @@ public class CartPage extends BasePage {
         return colorList.get(i).getText().split(" ")[1];
     }
 
-    public CartPage removeProduct(Product product) {
-        waitForElementsToBeVisible(productsName);
 
-        for (int i = 0; i < productsName.size(); i++) {
-            if (productsName.get(i).getText().equalsIgnoreCase(product.getName())
-                    && getSize(i).equalsIgnoreCase(String.valueOf(product.getSize()))
-                    && getColor(i).equalsIgnoreCase(String.valueOf(product.getColor()))) {
-
-                click(removeProductLink);
-                cart.removeProductFromCart(product);
-            }
-
+    public CartPage removeProduct(Product product, Cart cart) {
+        if (product.equals(getProduct(product))) {
+            cart.removeProductFromCart(product);
+            click(removeProductLink);
         }
-
         return this;
     }
 
-    public void assertMultipleSizesAddedToCart(Product product, List<ProductSize> productSizes) {
+    /*public void assertMultipleSizesAddedToCart(Product product, List<ProductSize> productSizes) {
         getProducts();
         printProducts();
         System.out.println("============================");
         cart.printProducts();
+        printProduct(product);
         List<String> sizeListOne = new ArrayList<>();
         List<String> sizesListTwo = new ArrayList<>();
 
@@ -118,7 +112,7 @@ public class CartPage extends BasePage {
 //        if(getProduct(product).equals(product))
 
     }
-
+*/
     public int getProductQuantity(int i) {
         String text = productsQuantity.get(i).getAttribute("value");
         return Integer.parseInt(text);
@@ -146,11 +140,8 @@ public class CartPage extends BasePage {
         return Double.parseDouble(formattedPrice);
     }
 
-    public void assertProductAddedToCart(Product product) {
-        getProduct(product);
-        System.out.println("Product added");
-        printProduct(product);
-        Assert.assertEquals(product.getName(), getProductName());
+    public void assertProductAddedToCart(Product product, Cart cart) {
+        Assert.assertEquals(getProduct(product), cart.getProduct(product));
     }
 
     public void assertProductRemovedFromCart() {
@@ -159,6 +150,7 @@ public class CartPage extends BasePage {
     }
 
     public List<Product> getProducts() {
+        waitForElementsToBeVisible(productsName);
         List<Product> products = new ArrayList<>();
         for (int i = 0; i < productsName.size(); i++) {
             Product product = new Product();
@@ -174,19 +166,11 @@ public class CartPage extends BasePage {
 
     public Product getProduct(Product product) {
         for (Product p : getProducts()) {
-            System.out.println("=========");
-            System.out.println(" product from cart");
-
-            printProduct(p);
-            Assert.assertEquals(p, product);
-
             if (Objects.equals(p, product)) {
-                Assert.assertEquals(p, product);
-                System.out.println("TRUE!!!!!");
-                return product;
+                return p;
             }
         }
-        return product;
+        return null;
     }
 
     public void printProducts() {

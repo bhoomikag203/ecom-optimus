@@ -1,14 +1,14 @@
 package com.optimusEcom.pages;
 
+import com.optimusEcom.builders.ProductBuilder;
 import com.optimusEcom.entities.Cart;
 import com.optimusEcom.entities.Product;
+import com.optimusEcom.productConstants.ProductColor;
 import com.optimusEcom.productConstants.ProductSize;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-
-import java.util.List;
 
 public class ProductPage extends BasePage {
 
@@ -33,12 +33,15 @@ public class ProductPage extends BasePage {
     @FindBy(css = ".price-item")
     WebElement productPrice;
 
+    @FindBy(css = ".product-single__title")
+    WebElement productName;
+
     public ProductPage(WebDriver driver) {
         super(driver);
     }
 
 
-    public CartPage addToCart(Product product) {
+    public CartPage addToCart(Product product, Cart cart) {
         waitForElementToBeVisible(sizeOption);
         Select selectSize = new Select(sizeOption);
         selectSize.selectByValue(String.valueOf(product.getSize()));
@@ -47,36 +50,42 @@ public class ProductPage extends BasePage {
         Select selectColor = new Select(colorOption);
         selectColor.selectByValue(String.valueOf(product.getColor()));
 
-        buildProduct(product);
+        product = buildProduct(product);
+        cart.addProductToCart(product);
         click(addToCartButton);
         click(viewCartLink);
-        cart.addProductToCart(product);
         return this.getInstance(CartPage.class);
     }
 
-    public CartPage selectProductWithMultipleSizes(Product product, List<ProductSize> sizes) {
+   /* public CartPage selectProductWithMultipleSizes(Product product, List<ProductSize> sizes) {
         for (ProductSize size : sizes) {
             waitForElementToBeVisible(sizeOption);
             Select selectSize = new Select(sizeOption);
 
             selectSize.selectByValue(String.valueOf(size));
 
-            buildProduct(product);
+            cart.addProductToCart(buildProduct());
             click(addToCartButton);
-            cart.addProductToCart(product);
 
             waitForElementToBeVisible(continueShoppingButton);
             click(continueShoppingButton);
-        }
+        }*/
 
-        waitForElementToBeVisible(cartIcon);
+      /*  waitForElementToBeVisible(cartIcon);
         click(cartIcon);
         return this.getInstance(CartPage.class);
+    }*/
+
+    public Product buildProduct(Product product) {
+
+        product.setPrice(getProductPrice());
+        product.setColor(ProductColor.valueOf(colorOption.getAttribute("value")));
+        product.setSize(ProductSize.valueOf(sizeOption.getAttribute("value")));
+        product.setName(productName.getText());
+
+        return product;
     }
 
-    public void buildProduct(Product product) {
-        product.setPrice(getProductPrice());
-    }
 
     private double getProductPrice() {
         waitForElementToBeVisible(productPrice);
