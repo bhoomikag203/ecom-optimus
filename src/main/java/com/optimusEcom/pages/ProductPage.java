@@ -14,25 +14,18 @@ public class ProductPage extends BasePage {
 
     @FindBy(name = "add")
     WebElement addToCartButton;
-
     @FindBy(xpath = "//a[@class='cart-popup__cta-link btn btn--secondary-accent']")
     WebElement viewCartLink;
-
     @FindBy(id = "SingleOptionSelector-0")
     WebElement colorOption;
-
     @FindBy(id = "SingleOptionSelector-1")
     WebElement sizeOption;
-
     @FindBy(css = ".cart-popup__dismiss")
     WebElement continueShoppingButton;
-
     @FindBy(css = ".site-header__cart")
     WebElement cartIcon;
-
     @FindBy(css = ".price-item")
     WebElement productPrice;
-
     @FindBy(css = ".product-single__title")
     WebElement productName;
 
@@ -53,6 +46,8 @@ public class ProductPage extends BasePage {
         product = buildProduct(product);
         cart.addProductToCart(product);
         click(addToCartButton);
+
+        waitForElementToBeClickable(viewCartLink);
         click(viewCartLink);
         return this.getInstance(CartPage.class);
     }
@@ -76,8 +71,7 @@ public class ProductPage extends BasePage {
         return this.getInstance(CartPage.class);
     }*/
 
-    public Product buildProduct(Product product) {
-
+    private Product buildProduct(Product product) {
         product.setPrice(getProductPrice());
         product.setColor(ProductColor.valueOf(colorOption.getAttribute("value")));
         product.setSize(ProductSize.valueOf(sizeOption.getAttribute("value")));
@@ -85,7 +79,6 @@ public class ProductPage extends BasePage {
 
         return product;
     }
-
 
     private double getProductPrice() {
         waitForElementToBeVisible(productPrice);

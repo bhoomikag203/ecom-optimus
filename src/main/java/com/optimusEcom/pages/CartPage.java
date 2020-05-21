@@ -8,18 +8,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class CartPage extends BasePage {
 
-    @FindBy(className = "cart__row")
-    List<WebElement> products;
     @FindBy(css = ".cart__price.text-right")
     List<WebElement> productsPrice;
     @FindBy(className = "cart__product-title")
@@ -37,56 +32,35 @@ public class CartPage extends BasePage {
     @FindBy(css = ".cart--empty-message")
     WebElement cartEmptyMessage;
 
+    List<Product> productList = new ArrayList<>();
+
     public CartPage(WebDriver driver) {
         super(driver);
     }
 
-    public String getProductName() {
-        waitForElementsToBeVisible(productsName);
-        return productsName.get(0).getText();
-    }
-
-    public double getSubTotalPrice() {
-        waitForElementToBeVisible(subTotalPrice);
-        String[] subTotalPriceArray = subTotalPrice.getText().split(" ");
-        String price = subTotalPriceArray[1];
-        double subPrice = Double.parseDouble(price.replaceAll(",", ""));
-        return subPrice;
-    }
-
-    public double getProductPrice(int i) {
-        waitForElementsToBeVisible(productsPrice);
-        String[] productPriceArray = productsPrice.get(i).getText().split(" ");
-        String price = productPriceArray[2].replace("Qty", "");
-        double productPrice = Double.parseDouble(price.replaceAll(",", ""));
-        return productPrice;
-    }
-
     public CartPage increaseQuantity(Product product, int count) {
-        for (int i = 0; i < products.size() - 1; i++) {
-            if (product.getName().equalsIgnoreCase(productsName.get(i).getText())) {
-                productsQuantity.get(i).clear();
-                productsQuantity.get(i).sendKeys(String.valueOf(count));
-                product.setQuantity(count);
-            }
+
+        Product p = getProductFromProductList(product);
+
+        if (product.equals(p)) {
+            int i = buildProductListFromCartPage().indexOf(p);
+
+            productsQuantity.get(i).clear();
+            productsQuantity.get(i).sendKeys(String.valueOf(count));
+
+            product.setQuantity(count);
+            p.setQuantity(count);
         }
         return this;
     }
 
-    public String getSize(int i) {
-        return sizeList.get(i).getText().split(" ")[1];
-    }
-
-    public String getColor(int i) {
-        return colorList.get(i).getText().split(" ")[1];
-    }
-
 
     public CartPage removeProduct(Product product, Cart cart) {
-        if (product.equals(getProduct(product))) {
-            cart.removeProductFromCart(product);
-            click(removeProductLink);
-        }
+
+        cart.removeProductFromCart(product);
+        removeProductFromProductList(product);
+        click(removeProductLink);
+
         return this;
     }
 
@@ -113,25 +87,77 @@ public class CartPage extends BasePage {
 
     }
 */
-    public int getProductQuantity(int i) {
-        String text = productsQuantity.get(i).getAttribute("value");
-        return Integer.parseInt(text);
-    }
 
-    public void assertSubTotal() {
-        double totalPrice = 0;
 
+    public void assertSubTotal(Cart cart) {
         try {
             Thread.sleep(2000);
-            for (int i = 0; i < productsName.size(); i++)
-                totalPrice += getProductQuantity(i) * getProductPrice(i);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        double totalPrice = cart.computeTotalPrice();
         totalPrice = formatPrice(totalPrice);
+
         Assert.assertEquals(totalPrice, getSubTotalPrice());
+    }
+
+
+    public void assertProductAddedToCart(Product product, Cart cart) {
+        Assert.assertEquals(getProductFromProductList(product), cart.getProduct(product));
+    }
+
+    public void assertProductRemovedFromCart() {
+        waitForElementToBeVisible(cartEmptyMessage);
+        Assert.assertEquals(cartEmptyMessage.getText(), "Your cart is currently empty.");
+    }
+
+
+    private List<Product> buildProductListFromCartPage() {
+        List list = new ArrayList();
+        waitForElementsToBeVisible(productsName);
+        for (int i = 0; i < productsName.size(); i++) {
+            Product product = new Product();
+            product.setName(productsName.get(i).getText());
+            product.setQuantity(Integer.parseInt(String.valueOf(getProductQuantity(i))));
+            product.setPrice(getProductPrice(i));
+            product.setSize(ProductSize.valueOf(getSize(i)));
+            product.setColor(ProductColor.valueOf(getColor(i)));
+            list.add(product);
+        }
+        return list;
+    }
+
+    private Product getProductFromProductList(Product product) {
+        productList = buildProductListFromCartPage();
+        for (Product p : productList) {
+            if (Objects.equals(p, product)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private void removeProductFromProductList(Product product) {
+        getProductFromProductList(product);
+        productList.remove(product);
+    }
+
+    private double getSubTotalPrice() {
+        waitForElementToBeVisible(subTotalPrice);
+        String[] subTotalPriceArray = subTotalPrice.getText().split(" ");
+        String price = subTotalPriceArray[1];
+        double subPrice = Double.parseDouble(price.replaceAll(",", ""));
+        return subPrice;
+    }
+
+    private double getProductPrice(int i) {
+        waitForElementsToBeVisible(productsPrice);
+        String[] productPriceArray = productsPrice.get(i).getText().split(" ");
+        String price = productPriceArray[2].replace("Qty", "");
+        double productPrice = Double.parseDouble(price.replaceAll(",", ""));
+        return productPrice;
     }
 
     private double formatPrice(double price) {
@@ -140,53 +166,17 @@ public class CartPage extends BasePage {
         return Double.parseDouble(formattedPrice);
     }
 
-    public void assertProductAddedToCart(Product product, Cart cart) {
-        Assert.assertEquals(getProduct(product), cart.getProduct(product));
+    private int getProductQuantity(int i) {
+        String text = productsQuantity.get(i).getAttribute("value");
+        return Integer.parseInt(text);
     }
 
-    public void assertProductRemovedFromCart() {
-        waitForElementToBeVisible(cartEmptyMessage);
-        Assert.assertEquals(cartEmptyMessage.getText(), "Your cart is currently empty.");
+    private String getSize(int i) {
+        return sizeList.get(i).getText().split(" ")[1];
     }
 
-    public List<Product> getProducts() {
-        waitForElementsToBeVisible(productsName);
-        List<Product> products = new ArrayList<>();
-        for (int i = 0; i < productsName.size(); i++) {
-            Product product = new Product();
-            product.setName(productsName.get(i).getText());
-            product.setQuantity(Integer.parseInt(String.valueOf(getProductQuantity(i))));
-            product.setPrice(getProductPrice(i));
-            product.setSize(ProductSize.valueOf(getSize(i)));
-            product.setColor(ProductColor.valueOf(getColor(i)));
-            products.add(product);
-        }
-        return products;
-    }
-
-    public Product getProduct(Product product) {
-        for (Product p : getProducts()) {
-            if (Objects.equals(p, product)) {
-                return p;
-            }
-        }
-        return null;
-    }
-
-    public void printProducts() {
-        for (Product product :
-                getProducts()) {
-            printProduct(product);
-        }
-    }
-
-    public void printProduct(Product product) {
-        System.out.println(product);
-        System.out.println(product.getName());
-        System.out.println(product.getQuantity());
-        System.out.println(product.getSize());
-        System.out.println(product.getColor());
-        System.out.println(product.getPrice());
+    private String getColor(int i) {
+        return colorList.get(i).getText().split(" ")[1];
     }
 
 }
