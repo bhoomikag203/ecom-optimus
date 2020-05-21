@@ -26,9 +26,9 @@
 </test>
     <test name="ThirdTestCase">
         <classes>
-            <class name="product.AddProductWithMultipleSizeTest">
+            <class name="product.AddMultipleProductsTest">
                 <methods>
-                    <include name="shouldAddProductWithMultipleSizeAndColor"/>
+                    <include name="shouldAddMultipleProductsToCart"/>
                 </methods>
             </class>
         </classes>

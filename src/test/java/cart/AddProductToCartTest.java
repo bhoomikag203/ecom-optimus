@@ -25,6 +25,7 @@ public class AddProductToCartTest extends BaseTest {
                 .login()
                 .searchProduct(product)
                 .addToCart(product, cart)
+                .viewCart()
                 .assertProductAddedToCart(product,cart);
 
     }

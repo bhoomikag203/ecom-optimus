@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,6 @@ public class CartPage extends BasePage {
     }
 
     public CartPage increaseQuantity(Product product, int count) {
-
         Product p = getProductFromProductList(product);
 
         if (product.equals(p)) {
@@ -52,42 +52,38 @@ public class CartPage extends BasePage {
             p.setQuantity(count);
         }
         return this;
+
     }
 
 
     public CartPage removeProduct(Product product, Cart cart) {
-
         cart.removeProductFromCart(product);
         removeProductFromProductList(product);
         click(removeProductLink);
-
         return this;
+
     }
 
-    /*public void assertMultipleSizesAddedToCart(Product product, List<ProductSize> productSizes) {
-        getProducts();
-        printProducts();
-        System.out.println("============================");
-        cart.printProducts();
-        printProduct(product);
-        List<String> sizeListOne = new ArrayList<>();
-        List<String> sizesListTwo = new ArrayList<>();
+    public void assertProductAddedToCart(Product product, Cart cart) {
+        Assert.assertEquals(getProductFromProductList(product), cart.getProduct(product));
+    }
+
+    public void assertProductRemovedFromCart() {
+        waitForElementToBeVisible(cartEmptyMessage);
+        Assert.assertEquals(cartEmptyMessage.getText(), "Your cart is currently empty.");
+    }
 
 
-        for (int i = 0; i < productSizes.size(); i++) {
-            if (product.getName().equalsIgnoreCase(productsName.get(i).getText())) {
-                sizeListOne.add(getSize(i));
-                sizesListTwo.add(String.valueOf(productSizes.get(i)));
-            }
+    public void assertMultipleProductsAddedToCart(List<Product> products, Cart cart) {
+        boolean isProductPresent = true;
+        for (Product product : products) {
+            if (cart.getProduct(product).equals(getProductFromProductList(product)) && isProductPresent)
+                isProductPresent = true;
+            else
+                isProductPresent = false;
         }
-        Collections.sort(sizeListOne);
-        Collections.sort(sizesListTwo);
-        Assert.assertEquals(sizeListOne, sizesListTwo);
-//        if(getProduct(product).equals(product))
-
+        Assert.assertTrue(isProductPresent);
     }
-*/
-
 
     public void assertSubTotal(Cart cart) {
         try {
@@ -101,16 +97,6 @@ public class CartPage extends BasePage {
         totalPrice = formatPrice(totalPrice);
 
         Assert.assertEquals(totalPrice, getSubTotalPrice());
-    }
-
-
-    public void assertProductAddedToCart(Product product, Cart cart) {
-        Assert.assertEquals(getProductFromProductList(product), cart.getProduct(product));
-    }
-
-    public void assertProductRemovedFromCart() {
-        waitForElementToBeVisible(cartEmptyMessage);
-        Assert.assertEquals(cartEmptyMessage.getText(), "Your cart is currently empty.");
     }
 
 

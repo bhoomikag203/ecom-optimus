@@ -24,6 +24,7 @@ public class AddProductFromFeatureCollectionTest extends BaseTest {
                 .login()
                 .selectProductFromFeatureCollection(product)
                 .addToCart(product, cart)
+                .viewCart()
                 .assertProductAddedToCart(product, cart);
     }
 

@@ -8,13 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BasePage {
 
-    @FindBy(xpath = "//a[@href='#LoginModal']")
+    @FindBy(css = "[aria-haspopup='dialog']")
     WebElement enterUsingPasswordLink;
-
     @FindBy(id = "Password")
     WebElement password;
-
-    @FindBy(xpath = "//button[contains(text(), 'Enter')]")
+    @FindBy(css = ".btn--narrow")
     WebElement enterButton;
 
     public LoginPage(WebDriver driver) {
@@ -23,7 +21,7 @@ public class LoginPage extends BasePage {
 
     public HomePage login() {
         click(enterUsingPasswordLink);
-        sendKeys(password,Properties.password);
+        sendKeys(password, Properties.password);
         click(enterButton);
         return this.getInstance(HomePage.class);
     }

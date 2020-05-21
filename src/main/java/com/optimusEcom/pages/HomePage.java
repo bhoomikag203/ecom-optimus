@@ -11,21 +11,16 @@ import java.util.concurrent.TimeUnit;
 
 public class HomePage extends BasePage {
 
-    @FindBy(xpath = "//header//button[1]//*[local-name()='svg']")
+    @FindBy(css = ".site-header__search-toggle")
     WebElement searchIcon;
-
-    @FindBy(xpath = "//header//div[2]//a")
+    @FindBy(css = ".site-header__cart")
     WebElement cartIcon;
-
     @FindBy(name = "q")
     WebElement searchBox;
-
     @FindBy(css = "#search-result-0")
     WebElement selectProduct;
-
     @FindBy(css = "div.shopify-section.index-section:nth-child(3)")
     WebElement featureCollection;
-
     @FindBy(css = ".grid-view-item__image-container")
     List<WebElement> productNameList;
 

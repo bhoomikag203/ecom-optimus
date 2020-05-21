@@ -23,6 +23,7 @@ public class RemoveProductFromCart extends BaseTest {
                 .login()
                 .searchProduct(product)
                 .addToCart(product,cart)
+                .viewCart()
                 .removeProduct(product, cart)
                 .assertProductRemovedFromCart();
 
