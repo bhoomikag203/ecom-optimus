@@ -35,21 +35,23 @@ public class ProductPage extends BasePage {
 
 
     public CartPage addToCart(Product product, Cart cart) {
-        waitForElementToBeVisible(sizeOption);
-        Select selectSize = new Select(sizeOption);
-        selectSize.selectByValue(String.valueOf(product.getSize()));
 
-        waitForElementToBeVisible(colorOption);
-        Select selectColor = new Select(colorOption);
-        selectColor.selectByValue(String.valueOf(product.getColor()));
+        selectProductSize(product);
+        selectProductColor(product);
 
         product = buildProduct(product);
         cart.addProductToCart(product);
+
         click(addToCartButton);
+        viewCart();
+
+        return this.getInstance(CartPage.class);
+    }
+
+    public void viewCart() {
 
         waitForElementToBeClickable(viewCartLink);
         click(viewCartLink);
-        return this.getInstance(CartPage.class);
     }
 
    /* public CartPage selectProductWithMultipleSizes(Product product, List<ProductSize> sizes) {
@@ -86,6 +88,24 @@ public class ProductPage extends BasePage {
         String price = productPriceArray[1];
         double productPrice = Double.parseDouble(price.replaceAll(",", ""));
         return productPrice;
+    }
+
+    private ProductPage selectProductSize(Product product) {
+        waitForElementToBeVisible(sizeOption);
+
+        Select selectSize = new Select(sizeOption);
+        selectSize.selectByValue(String.valueOf(product.getSize()));
+
+        return this;
+    }
+
+    private ProductPage selectProductColor(Product product) {
+        waitForElementToBeVisible(colorOption);
+
+        Select selectColor = new Select(colorOption);
+        selectColor.selectByValue(String.valueOf(product.getColor()));
+
+        return this;
     }
 
 }
