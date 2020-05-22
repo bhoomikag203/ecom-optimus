@@ -22,7 +22,7 @@ public class AddProductFromFeatureCollectionTest extends BaseTest {
 
         page.getInstance(LoginPage.class)
                 .login()
-                .selectProductFromFeatureCollection(product)
+                .selectProductFromFeatureCollection()
                 .addToCart(product, cart)
                 .viewCart()
                 .assertProductAddedToCart(product, cart);

@@ -25,6 +25,12 @@ public class AddMultipleProductsTest extends BaseTest {
             .withSize(ProductSize.M)
             .build();
 
+    Product thirdProduct = new ProductBuilder()
+            .withName("Round Neck Shirt 15")
+            .withColor(ProductColor.Silver)
+            .withSize(ProductSize.S)
+            .build();
+
     List<Product> products = new ArrayList();
 
     @Test
@@ -32,13 +38,13 @@ public class AddMultipleProductsTest extends BaseTest {
         Cart cart = new Cart();
         products.add(firstProduct);
         products.add(secondProduct);
+        products.add(thirdProduct);
 
         page.getInstance(LoginPage.class).login()
                 .searchProduct(firstProduct)
                 .addMultipleProducts(products, cart)
                 .viewCart()
                 .assertMultipleProductsAddedToCart(products, cart);
-
 
     }
 

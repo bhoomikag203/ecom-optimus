@@ -45,13 +45,6 @@ public class ProductPage extends BasePage {
         return this;
     }
 
-    public CartPage viewCart() {
-        waitForElementToBeClickable(viewCartLink);
-        click(viewCartLink);
-        return this.getInstance(CartPage.class);
-
-    }
-
     public ProductPage addMultipleProducts(List<Product> products, Cart cart) {
         for (Product product : products) {
             navigateToHomePage()
@@ -65,6 +58,13 @@ public class ProductPage extends BasePage {
     public HomePage navigateToHomePage() {
         click(logoLink);
         return getInstance(HomePage.class);
+
+    }
+
+    public CartPage viewCart() {
+        waitForElementToBeClickable(viewCartLink);
+        click(viewCartLink);
+        return this.getInstance(CartPage.class);
 
     }
 

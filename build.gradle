@@ -31,7 +31,7 @@ dependencies {
 task runTests(type: Test) {
     useTestNG() {
         systemProperties = [
-                env: System.getProperty('env', 'chromeEnvironment')
+                env: System.getProperty('env', 'chromeMobileView')
         ]
         parallel = "classes"
         threadCount = 5
