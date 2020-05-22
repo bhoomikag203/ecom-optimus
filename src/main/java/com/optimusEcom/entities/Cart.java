@@ -19,12 +19,8 @@ public class Cart {
     }
 
     public Product getProduct(Product product) {
-        for (Product p :
-                products) {
-            if (p.equals(product)) {
-                return p;
-            }
-        }
+        if (products.contains(product))
+            return product;
         return null;
     }
 
